@@ -1,0 +1,23 @@
+Sublime Editor Plugin
+=====================
+
+The Sublime Plug-in software contained herein is Copyright (C) 2011, Jayson
+Vantuyl.  It is licensed under the Creative Commons
+Attribution-NonCommercial-ShareAlike 3.0 Unported license.  To view a copy of
+the license, visit:
+
+  http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode
+
+For alternate licensing arrangements, contact the author at jvantuyl@gmail.com.
+
+Included Software
+=================
+
+The included copy of PlantUML is licensed under the GNU General Public License.
+
+For source code, official downloads and licensing information, see
+http://plantuml.sourceforge.net.  This compiled binary is distributed
+unmodified, called at runtime, and is not to be construed as meaningfully part
+of this program (i.e. they "communicate at arms length" as mentioned in
+http://www.gnu.org/licenses/gpl-faq.html#GPLInProprietarySystem).
+

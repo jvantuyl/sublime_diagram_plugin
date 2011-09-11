@@ -1,0 +1,14 @@
+Bare Diagram:
+
+@startuml
+a --> b
+a <-- b
+@enduml
+
+Comment Diagram:
+
+# @startuml
+# c --> d
+# d <-- c
+# @enduml
+
