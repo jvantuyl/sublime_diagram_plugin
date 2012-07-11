@@ -13,4 +13,4 @@ class QuickLookViewer(BaseViewer):
     def view(self, diagram_files):
         displaycmd = ['qlmanage', '-p']
         displaycmd.extend(diagram_file.name for diagram_file in diagram_files)
-        run_command(displaycmd)
+        run_command(displaycmd).wait()
