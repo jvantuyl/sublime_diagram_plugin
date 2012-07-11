@@ -17,6 +17,9 @@ def setup():
     global ACTIVE_PROCESSORS
     global ACTIVE_VIEWER
 
+    ACTIVE_PROCESSORS = []
+    ACTIVE_VIEWER = None
+
     for processor in AVAILABLE_PROCESSORS:
         try:
             print "Loading processor class: %r" % processor
@@ -85,6 +88,3 @@ def render_and_view(diagrams):
 
     if diagram_files:
         ACTIVE_VIEWER.view(diagram_files)
-
-if not INITIALIZED:
-    setup()

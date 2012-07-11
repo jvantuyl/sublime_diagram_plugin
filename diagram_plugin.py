@@ -12,3 +12,9 @@ class DisplayDiagrams(TextCommand):
 
     def isEnabled(self):
         return True
+
+try:
+    setup()
+except Exception:
+    error_message("Unable to load diagram plugin, check console for details.")
+    raise
