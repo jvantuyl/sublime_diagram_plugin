@@ -3,6 +3,7 @@ from .plantuml import PlantUMLProcessor
 from .quicklook import QuickLookViewer
 from .eog import EyeOfGnomeViewer
 from threading import Thread
+import sys
 
 INITIALIZED = False
 AVAILABLE_PROCESSORS = [PlantUMLProcessor]
@@ -21,17 +22,23 @@ def setup():
             proc = processor()
             proc.load()
             ACTIVE_PROCESSORS.append(proc)
+            print "Loaded processor: %r" % proc
         except Exception:
             print "Unable to load processor: %r" % processor
+            sys.excepthook(*sys.exc_info())
+    if not ACTIVE_PROCESSORS:
+        raise Exception('No working processors found!')
 
     for viewer in AVAILABLE_VIEWERS:
         try:
             vwr = viewer()
             vwr.load()
             ACTIVE_VIEWER = vwr
+            print "Loaded viewer: %r" % vwr
             break
         except Exception:
             print "Unable to load viewer: %r" % viewer
+            sys.excepthook(*sys.exc_info())
     else:
         raise Exception('No working viewers found!')
 
