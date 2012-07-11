@@ -67,8 +67,6 @@ class PlantUMLProcessor(BaseProcessor):
             stdout=PIPE,
             stderr=STDOUT
         )
-        version_output = ''
-        first = True
 
         (stdout, stderr) = puml.communicate()
         version_output = stdout
