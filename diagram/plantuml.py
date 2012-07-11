@@ -49,8 +49,8 @@ class PlantUMLProcessor(BaseProcessor):
                 self.plantuml_jar_file
             )
         )
-        assert exists(self.plantuml_jar_path), \
-            "can't find " + self.plantuml_jar_file
+        if not exists(self.plantuml_jar_path):
+            raise Exception("can't find " + self.plantuml_jar_file)
 
     def check_plantuml_version(self):
         puml = execute(
@@ -74,9 +74,10 @@ class PlantUMLProcessor(BaseProcessor):
         print "Version Detection:"
         print version_output
 
-        assert puml.returncode == 0, "PlantUML returned an error code"
-        assert self.PLANTUML_VERSION_STRING in version_output, \
-            "error verifying PlantUML version"
+        if not puml.returncode == 0:
+            raise Exception("PlantUML returned an error code")
+        if self.PLANTUML_VERSION_STRING not in version_output:
+            raise Exception("error verifying PlantUML version")
 
     def extract_blocks(self, view):
         pairs = (

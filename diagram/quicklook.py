@@ -5,7 +5,8 @@ from subprocess import check_call
 
 class QuickLookViewer(BaseViewer):
     def load(self):
-        assert sys.platform in ('darwin',), "Currently only supported on MacOS"
+        if sys.platform not in ('darwin',):
+            raise Exception("Currently only supported on MacOS")
 
     def view(self, diagram_files):
         displaycmd = ['qlmanage', '-p']
