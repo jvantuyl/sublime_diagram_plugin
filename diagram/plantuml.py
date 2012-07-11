@@ -40,10 +40,32 @@ class PlantUMLProcessor(BaseProcessor):
         self.check_dependencies()
         self.find_plantuml_jar()
         self.check_plantuml_version()
+        self.check_plantuml_functionality()
 
     def check_dependencies(self):
         if not check_call("which java > /dev/null", shell=True) == 0:
             raise Exception("can't find Java")
+
+    def check_plantuml_functionality(self):
+        puml = execute(
+            [
+                'java',
+                '-jar',
+                self.plantuml_jar_path,
+                '-testdot'
+            ],
+            stdout=PIPE,
+            stderr=STDOUT
+        )
+
+        (stdout, stderr) = puml.communicate()
+        dot_output = stdout
+
+        print "PlantUML Smoke Check:"
+        print dot_output
+
+        if (not 'OK' in dot_output) or ('Error' in dot_output):
+            raise Exception('PlantUML does not appear functional')
 
     def find_plantuml_jar(self):
         self.plantuml_jar_file = 'plantuml-%s.jar' % (self.PLANTUML_VERSION,)
