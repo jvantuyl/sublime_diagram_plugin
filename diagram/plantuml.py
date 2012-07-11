@@ -22,8 +22,8 @@ class PlantUMLDiagram(BaseDiagram):
             ],
             stdin=PIPE,
             stdout=self.file)
-        puml.communicate(self.text)
-        if puml.wait() != 0:
+        puml.communicate(input=self.text)
+        if puml.returncode != 0:
             print "Error Processing Diagram:"
             print self.text
             return
@@ -68,10 +68,8 @@ class PlantUMLProcessor(BaseProcessor):
         version_output = ''
         first = True
 
-        while first or puml.returncode is None:
-            first = False
-            (stdout, stderr) = puml.communicate()
-            version_output += stdout
+        (stdout, stderr) = puml.communicate()
+        version_output = stdout
 
         print "Version Detection:"
         print version_output
