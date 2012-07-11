@@ -33,14 +33,15 @@ class PlantUMLDiagram(BaseDiagram):
 
 class PlantUMLProcessor(BaseProcessor):
     DIAGRAM_CLASS = PlantUMLDiagram
-    PLANTUML_VERSION_STRING = 'PlantUML version 7232'
+    PLANTUML_VERSION = 7232
+    PLANTUML_VERSION_STRING = 'PlantUML version %s' % PLANTUML_VERSION
 
     def load(self):
         self.find_plantuml_jar()
         self.check_plantuml_version()
 
     def find_plantuml_jar(self):
-        self.plantuml_jar_file = 'plantuml-%s.jar' % (7232,)
+        self.plantuml_jar_file = 'plantuml-%s.jar' % (self.PLANTUML_VERSION,)
         self.plantuml_jar_path = None
 
         self.plantuml_jar_path = abspath(
@@ -51,6 +52,7 @@ class PlantUMLProcessor(BaseProcessor):
         )
         if not exists(self.plantuml_jar_path):
             raise Exception("can't find " + self.plantuml_jar_file)
+        print "Detected %r" % (self.plantuml_jar_path,)
 
     def check_plantuml_version(self):
         puml = execute(
