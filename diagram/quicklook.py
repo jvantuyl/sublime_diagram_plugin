@@ -7,6 +7,8 @@ class QuickLookViewer(BaseViewer):
     def load(self):
         if sys.platform not in ('darwin',):
             raise Exception("Currently only supported on MacOS")
+        if not check_call("which qlmanage > /dev/null", shell=True) == 0:
+            raise Exception("Can't find qlmanage")
 
     def view(self, diagram_files):
         displaycmd = ['qlmanage', '-p']
