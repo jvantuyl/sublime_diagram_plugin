@@ -25,8 +25,18 @@ Patches for additional support welcome.
 Install Instructions
 ====================
 
-Check out the source directory in the Packages directory for your platform.
+Check out the source directory or download and uncompress the source tarball.
+Put this directoy in the Packages directory for your platform.
 
 On Linux, it's sometimes "~/.config/sublime-text-2/Packages/".
 On MacOS X, it's "~/Library/Application Support/Sublime Text 2/Packages/".
 
+Sublime Text should detect the plugin and automatically load it.
+
+The source is available via git at:
+
+https://github.com/jvantuyl/sublime_diagram_plugin.git
+
+Or as a tarball at:
+
+https://github.com/jvantuyl/sublime_diagram_plugin/tarball/master
