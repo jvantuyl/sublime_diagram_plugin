@@ -1,6 +1,6 @@
 from .base import BaseViewer
 import sys
-from subprocess import check_call
+from subprocess import check_call, Popen as run_command
 
 
 class QuickLookViewer(BaseViewer):
@@ -13,4 +13,4 @@ class QuickLookViewer(BaseViewer):
     def view(self, diagram_files):
         displaycmd = ['qlmanage', '-p']
         displaycmd.extend(diagram_file.name for diagram_file in diagram_files)
-        check_call(displaycmd)
+        run_command(displaycmd)
