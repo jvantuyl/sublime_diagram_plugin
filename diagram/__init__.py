@@ -1,11 +1,12 @@
 from __future__ import absolute_import
 from .plantuml import PlantUMLProcessor
 from .quicklook import QuickLookViewer
+from .eog import EyeOfGnomeViewer
 from threading import Thread
 
 INITIALIZED = False
 AVAILABLE_PROCESSORS = [PlantUMLProcessor]
-AVAILABLE_VIEWERS = [QuickLookViewer]
+AVAILABLE_VIEWERS = [QuickLookViewer, EyeOfGnomeViewer]
 ACTIVE_PROCESSORS = []
 ACTIVE_VIEWER = None
 
