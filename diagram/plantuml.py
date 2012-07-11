@@ -1,7 +1,7 @@
 from __future__ import absolute_import
 from .base import BaseDiagram
 from .base import BaseProcessor
-from subprocess import Popen as execute, PIPE, STDOUT
+from subprocess import Popen as execute, PIPE, STDOUT, check_call
 from os.path import abspath, dirname, exists, join
 from tempfile import NamedTemporaryFile
 
@@ -37,6 +37,8 @@ class PlantUMLProcessor(BaseProcessor):
     PLANTUML_VERSION_STRING = 'PlantUML version %s' % PLANTUML_VERSION
 
     def load(self):
+        if not check_call("which java > /dev/null", shell=True) == 0:
+            raise Exception("can't find Java")
         self.find_plantuml_jar()
         self.check_plantuml_version()
 
