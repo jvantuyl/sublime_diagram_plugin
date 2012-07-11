@@ -19,6 +19,7 @@ def setup():
 
     for processor in AVAILABLE_PROCESSORS:
         try:
+            print "Loading processor class: %r" % processor
             proc = processor()
             proc.load()
             ACTIVE_PROCESSORS.append(proc)
@@ -31,6 +32,7 @@ def setup():
 
     for viewer in AVAILABLE_VIEWERS:
         try:
+            print "Loading viewer class: %r" % viewer
             vwr = viewer()
             vwr.load()
             ACTIVE_VIEWER = vwr
@@ -75,7 +77,7 @@ def process(view):
 
 
 def render_and_view(diagrams):
-    print diagrams
+    print "Rendering %r" % diagrams
     diagram_files = []
 
     for processor, blocks in diagrams:

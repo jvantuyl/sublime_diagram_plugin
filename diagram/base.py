@@ -20,6 +20,7 @@ class BaseProcessor(object):
         diagrams = []
         for block in text_blocks:
             try:
+                print "Rendering diagram for block: %r" % block
                 diagram = self.DIAGRAM_CLASS(self, block)
                 rendered = diagram.generate()
                 diagrams.append(rendered)
