@@ -37,10 +37,13 @@ class PlantUMLProcessor(BaseProcessor):
     PLANTUML_VERSION_STRING = 'PlantUML version %s' % PLANTUML_VERSION
 
     def load(self):
-        if not check_call("which java > /dev/null", shell=True) == 0:
-            raise Exception("can't find Java")
+        self.check_dependencies()
         self.find_plantuml_jar()
         self.check_plantuml_version()
+
+    def check_dependencies(self):
+        if not check_call("which java > /dev/null", shell=True) == 0:
+            raise Exception("can't find Java")
 
     def find_plantuml_jar(self):
         self.plantuml_jar_file = 'plantuml-%s.jar' % (self.PLANTUML_VERSION,)
