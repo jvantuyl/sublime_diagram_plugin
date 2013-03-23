@@ -1,13 +1,16 @@
 from __future__ import absolute_import
 from .plantuml import PlantUMLProcessor
 from .quicklook import QuickLookViewer
+from .preview import PreviewViewer
 from .eog import EyeOfGnomeViewer
 from threading import Thread
+from os.path import splitext
+from sublime import load_settings
 import sys
 
 INITIALIZED = False
 AVAILABLE_PROCESSORS = [PlantUMLProcessor]
-AVAILABLE_VIEWERS = [QuickLookViewer, EyeOfGnomeViewer]
+AVAILABLE_VIEWERS = [QuickLookViewer, EyeOfGnomeViewer,PreviewViewer]
 ACTIVE_PROCESSORS = []
 ACTIVE_VIEWER = None
 
@@ -19,6 +22,9 @@ def setup():
 
     ACTIVE_PROCESSORS = []
     ACTIVE_VIEWER = None
+
+    sublime_settings = load_settings("Diagram.sublime-settings")
+    print "Viewer Setting: " + sublime_settings.get("viewer")
 
     for processor in AVAILABLE_PROCESSORS:
         try:
@@ -34,17 +40,19 @@ def setup():
         raise Exception('No working processors found!')
 
     for viewer in AVAILABLE_VIEWERS:
+        print "Viewer " + viewer.__name__
         try:
-            print "Loading viewer class: %r" % viewer
-            vwr = viewer()
-            vwr.load()
-            ACTIVE_VIEWER = vwr
-            print "Loaded viewer: %r" % vwr
-            break
+            if viewer.__name__.find(sublime_settings.get("viewer")) != -1:
+                print "Loading viewer class: %r" % viewer
+                vwr = viewer()
+                vwr.load()
+                ACTIVE_VIEWER = vwr
+                print "Loaded viewer: %r" % vwr
+                break
         except Exception:
             print "Unable to load viewer: %r" % viewer
             sys.excepthook(*sys.exc_info())
-    else:
+    if not ACTIVE_VIEWER:
         raise Exception('No working viewers found!')
 
     INITIALIZED = True
@@ -71,7 +79,8 @@ def process(view):
             diagrams.append((processor, blocks, ))
 
     if diagrams:
-        t = Thread(target=render_and_view, args=(diagrams,))
+        sourceFile = splitext(view.file_name())[0] + '-Diagram-'
+        t = Thread(target=render_and_view, args=(sourceFile, diagrams,))
         t.daemon = True
         t.start()
         return True
@@ -79,12 +88,12 @@ def process(view):
         return False
 
 
-def render_and_view(diagrams):
+def render_and_view(sourceFile, diagrams):
     print "Rendering %r" % diagrams
     diagram_files = []
 
     for processor, blocks in diagrams:
-        diagram_files.extend(processor.process(blocks))
+        diagram_files.extend(processor.process(sourceFile,blocks))
 
     if diagram_files:
         print "%r viewing %r" % (ACTIVE_VIEWER, [d.name for d in diagram_files])

@@ -7,9 +7,9 @@ from tempfile import NamedTemporaryFile
 
 
 class PlantUMLDiagram(BaseDiagram):
-    def __init__(self, processor, text):
-        super(PlantUMLDiagram, self).__init__(processor, text)
-        self.file = NamedTemporaryFile(suffix='.png')
+    def __init__(self, processor, sourceFile, text):
+        super(PlantUMLDiagram, self).__init__(processor, sourceFile, text)
+        self.file = NamedTemporaryFile(prefix=sourceFile,suffix='.png',delete=False)
 
     def generate(self):
         puml = execute(
