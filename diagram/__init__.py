@@ -40,19 +40,33 @@ def setup():
         raise Exception('No working processors found!')
 
     for viewer in AVAILABLE_VIEWERS:
-        print "Viewer " + viewer.__name__
-        try:
-            if viewer.__name__.find(sublime_settings.get("viewer")) != -1:
+        if viewer.__name__.find(sublime_settings.get("viewer")) != -1:
+            try:
+                print "Loading viewer class from configuration: %r" % viewer
+                vwr = viewer()
+                vwr.load()
+                ACTIVE_VIEWER = vwr
+                print "Loaded viewer: %r" % vwr
+                break
+            except Exception:
+                print "Unable to load configured viewer, falling back to autodetection..."
+                sys.excepthook(*sys.exc_info())
+
+    if ACTIVE_VIEWER is None:
+        for viewer in AVAILABLE_VIEWERS:
+            print "Trying Viewer " + viewer.__name__
+            try:
                 print "Loading viewer class: %r" % viewer
                 vwr = viewer()
                 vwr.load()
                 ACTIVE_VIEWER = vwr
                 print "Loaded viewer: %r" % vwr
                 break
-        except Exception:
-            print "Unable to load viewer: %r" % viewer
-            sys.excepthook(*sys.exc_info())
-    if not ACTIVE_VIEWER:
+            except Exception:
+                print "Unable to load viewer: %r" % viewer
+                sys.excepthook(*sys.exc_info())
+
+    if ACTIVE_VIEWER is None:
         raise Exception('No working viewers found!')
 
     INITIALIZED = True
