@@ -10,7 +10,7 @@ import sys
 
 INITIALIZED = False
 AVAILABLE_PROCESSORS = [PlantUMLProcessor]
-AVAILABLE_VIEWERS = [QuickLookViewer, EyeOfGnomeViewer,PreviewViewer]
+AVAILABLE_VIEWERS = [QuickLookViewer, EyeOfGnomeViewer, PreviewViewer]
 ACTIVE_PROCESSORS = []
 ACTIVE_VIEWER = None
 
