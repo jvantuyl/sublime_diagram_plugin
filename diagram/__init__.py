@@ -79,7 +79,7 @@ def process(view):
             diagrams.append((processor, blocks, ))
 
     if diagrams:
-        sourceFile = splitext(view.file_name())[0] + '-Diagram-'
+        sourceFile = splitext(view.file_name())[0] + '-'
         t = Thread(target=render_and_view, args=(sourceFile, diagrams,))
         t.daemon = True
         t.start()
