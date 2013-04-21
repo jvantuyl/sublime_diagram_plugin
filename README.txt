@@ -5,11 +5,15 @@ This is a plugin that renders diagrams from your selection in Sublime Text 2.
 
 By default, it binds the (Command / Alt)-M key and registers a command on the
 Command Palette.  Simple select the text for your diagram and trigger the
-command.  Multiselections are allowed.
+command.  Multiselections are allowed.  Each diagram will be generated in a
+uniquely named file.
 
 If a diagram handler recognizes a diagram in the selection, it will render it
 and pop it up in a detected viewer.  All files are created in such a way that
 they will be cleaned up unless Sublime Text dies a particularly horrible death.
+
+If you wish to override the viewer used, create a user version of
+Diagram.sublime-settings file in the usual way.
 
 
 Support
@@ -17,9 +21,12 @@ Support
 
 Operating Systems:  MacOS X, Linux
 Diagram Types: PlantUML
-Viewers (in order of preference): MacOS X QuickLook, Eye of Gnome
+Viewers (in order of preference):
+ - MacOS X Preview
+ - MacOS X QuickLook
+ - Eye of Gnome
 
-Patches for additional support welcome.
+Patches to support additional viewers or diagrams are welcome.
 
 
 Install Instructions
@@ -40,3 +47,14 @@ https://github.com/jvantuyl/sublime_diagram_plugin.git
 Or as a tarball at:
 
 https://github.com/jvantuyl/sublime_diagram_plugin/tarball/master
+
+
+Thanks
+======
+
+Special thanks to all of those who have contributed code and feedback,
+including:
+
+* Seán Labastille (Preview support, multi-diagram support)
+* Stanislav Vitko (PlantUML updates)
+* Julian Godesa (UX feedback)
