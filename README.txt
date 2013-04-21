@@ -16,6 +16,19 @@ If you wish to override the viewer used, create a user version of
 Diagram.sublime-settings file in the usual way.
 
 
+Install
+=======
+
+To install from scratch, it's necessary to have:
+
+* Java (download from java.sun.com)
+* Graphviz (I recommend "homebrew" on the Mac)
+* Sublime Text 2
+
+To install, just put a checkout of this project into your Packages directory in
+Sublime Text.
+
+
 Support
 =======
 
