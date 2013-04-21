@@ -86,6 +86,8 @@ def process(view):
                 if sel.intersects(block):
                     add = True
                     break
+            else:  # if there are no selections, add all blocks
+                add = True
             if add:
                 blocks.append(view.substr(block))
 
