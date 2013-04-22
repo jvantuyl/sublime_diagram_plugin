@@ -1,6 +1,7 @@
 # Overview
 
-This is a plugin that renders diagrams from your selection in Sublime Text 2.
+This is a plugin that renders diagrams from your selection in Sublime Text 2
+or 3.
 
 By default, it binds the (Command / Alt)-M key and registers a command on the
 Command Palette.  Simple select the text for your diagram and trigger the
@@ -21,7 +22,7 @@ To install from scratch, it's necessary to have:
 
 * Java (download from java.sun.com)
 * Graphviz (I recommend "homebrew" on the Mac)
-* Sublime Text 2
+* Sublime Text 2 or 3
 
 To install, just put a checkout of this project into your Packages directory in
 Sublime Text.
