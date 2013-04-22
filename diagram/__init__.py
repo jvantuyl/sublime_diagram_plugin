@@ -5,7 +5,7 @@ from .preview import PreviewViewer
 from .eog import EyeOfGnomeViewer
 from threading import Thread
 from os.path import splitext
-from sublime import load_settings
+from sublime import error_message, load_settings
 import sys
 
 INITIALIZED = False
