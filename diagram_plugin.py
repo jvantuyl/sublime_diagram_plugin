@@ -13,8 +13,15 @@ class DisplayDiagrams(TextCommand):
     def isEnabled(self):
         return True
 
-try:
+
+if version()[0] == '2':
     setup()
-except Exception:
-    error_message("Unable to load diagram plugin, check console for details.")
-    raise
+else:
+    def plugin_loaded():
+        """Sublime Text 3 callback to do after-loading initialization"""
+        try:
+            setup()
+        except Exception:
+            error_message("Unable to load diagram plugin, check console "
+                "for details.")
+            raise
