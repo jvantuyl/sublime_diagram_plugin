@@ -16,15 +16,15 @@
                         "children":
                         [
                             {
+                                "command": "display_diagrams",
+                                "caption": "Display Diagrams"
+                            },
+                            { "caption": "-" },
+                            {
                                 "command": "open_file",
                                 "args": {"file": "${packages}/sublime_diagram_plugin/README.txt"},
                                 "caption": "README"
                             },
-                            // {
-                            //     "command": "open_file",
-                            //     "args": {"file": "${packages}/SublimeLinter/changelog.txt"},
-                            //     "caption": "Change Log"
-                            // },
                             { "caption": "-" },
                             {
                                 "command": "open_file",
