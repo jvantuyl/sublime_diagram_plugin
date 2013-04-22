@@ -2,8 +2,8 @@ from sublime_plugin import TextCommand
 from sublime import error_message, version
 try:
     from .diagram import setup, process
-except ImportError:
-    from .diagram import setup, process
+except ValueError:
+    from diagram import setup, process
 
 
 class DisplayDiagrams(TextCommand):
