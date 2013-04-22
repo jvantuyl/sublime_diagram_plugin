@@ -22,10 +22,10 @@ class PlantUMLDiagram(BaseDiagram):
             ],
             stdin=PIPE,
             stdout=self.file)
-        puml.communicate(input=self.text)
+        puml.communicate(input=self.text.encode('UTF-8'))
         if puml.returncode != 0:
-            print "Error Processing Diagram:"
-            print self.text
+            print("Error Processing Diagram:")
+            print(self.text)
             return
         else:
             return self.file
@@ -59,10 +59,10 @@ class PlantUMLProcessor(BaseProcessor):
         )
 
         (stdout, stderr) = puml.communicate()
-        dot_output = stdout
+        dot_output = str(stdout)
 
-        print "PlantUML Smoke Check:"
-        print dot_output
+        print("PlantUML Smoke Check:")
+        print(dot_output)
 
         if (not 'OK' in dot_output) or ('Error' in dot_output):
             raise Exception('PlantUML does not appear functional')
@@ -79,7 +79,7 @@ class PlantUMLProcessor(BaseProcessor):
         )
         if not exists(self.plantuml_jar_path):
             raise Exception("can't find " + self.plantuml_jar_file)
-        print "Detected %r" % (self.plantuml_jar_path,)
+        print("Detected %r" % (self.plantuml_jar_path,))
 
     def check_plantuml_version(self):
         puml = execute(
@@ -96,12 +96,12 @@ class PlantUMLProcessor(BaseProcessor):
         (stdout, stderr) = puml.communicate()
         version_output = stdout
 
-        print "Version Detection:"
-        print version_output
+        print("Version Detection:")
+        print(version_output)
 
         if not puml.returncode == 0:
             raise Exception("PlantUML returned an error code")
-        if self.PLANTUML_VERSION_STRING not in version_output:
+        if self.PLANTUML_VERSION_STRING not in str(version_output):
             raise Exception("error verifying PlantUML version")
 
     def extract_blocks(self, view):
