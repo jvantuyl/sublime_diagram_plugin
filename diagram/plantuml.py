@@ -22,7 +22,7 @@ class PlantUMLDiagram(BaseDiagram):
             ],
             stdin=PIPE,
             stdout=self.file)
-        puml.communicate(input=self.text)
+        puml.communicate(input=self.text.encode('UTF-8'))
         if puml.returncode != 0:
             print("Error Processing Diagram:")
             print(self.text)
@@ -59,7 +59,7 @@ class PlantUMLProcessor(BaseProcessor):
         )
 
         (stdout, stderr) = puml.communicate()
-        dot_output = stdout
+        dot_output = str(stdout)
 
         print("PlantUML Smoke Check:")
         print(dot_output)
@@ -101,7 +101,7 @@ class PlantUMLProcessor(BaseProcessor):
 
         if not puml.returncode == 0:
             raise Exception("PlantUML returned an error code")
-        if self.PLANTUML_VERSION_STRING not in version_output:
+        if self.PLANTUML_VERSION_STRING not in str(version_output):
             raise Exception("error verifying PlantUML version")
 
     def extract_blocks(self, view):
