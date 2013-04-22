@@ -1,5 +1,5 @@
 from sublime_plugin import TextCommand
-from sublime import error_message
+from sublime import error_message, version
 from .diagram import setup, process
 
 
