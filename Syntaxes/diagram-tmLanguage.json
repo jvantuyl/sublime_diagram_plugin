@@ -1,0 +1,71 @@
+{
+   "fileTypes":[
+      "wsd"
+   ],
+   "uuid":"ca03e751-04ef-4330-9a6b-2199aae1c418",
+   "patterns":[
+      {
+         "end":"\\n",
+         "begin":"^(#|')",
+         "name":"comment.line.source.wsd"
+      },
+
+      {
+         "match":"\\b(abstract|actor|class|component|enum|interface|object|participant|state|usecase)\\b",
+         "name":"support.function.source.wsd"
+      },
+
+      {
+         "name":"string.quoted.double.source.wsd",
+         "end":"\\n",
+         "begin":"\\btitle\\b",
+         "beginCaptures": {
+            "0": { "name": "keyword.control.source.wsd" }
+          }
+      },
+      {
+         "match":"\\b(@enduml|@startuml|activate|again|also|alt|as|autonumber|bottom|box|break|center|create|critical|deactivate|destroy|down|else|end|endif|endwhile|footbox|footer|fork|group|header|hide|if|is|left|link|loop|namespace|newpage|note|of|on|opt|over|package|page|par|partition|ref|repeat|return|right|rotate|show|skin|skinparam|start|stop|title|top|top to bottom direction|up|while)\\b",
+         "name":"keyword.control.source.wsd"
+      },
+      {
+         "match":"\\b(AliceBlue|AntiqueWhite|Aqua|Aquamarine|Azure|Beige|Bisque|Black|BlanchedAlmond|Blue|BlueViolet|Brown|BurlyWood|CadetBlue|Chartreuse|Chocolate|Coral|CornflowerBlue|Cornsilk|Crimson|Cyan|DarkBlue|DarkCyan|DarkGoldenRod|DarkGray|DarkGreen|DarkGrey|DarkKhaki|DarkMagenta|DarkOliveGreen|DarkOrchid|DarkRed|DarkSalmon|DarkSeaGreen|DarkSlateBlue|DarkSlateGray|DarkSlateGrey|DarkTurquoise|DarkViolet|Darkorange|DeepPink|DeepSkyBlue|DimGray|DimGrey|DodgerBlue|FireBrick|FloralWhite|ForestGreen|Fuchsia|Gainsboro|GhostWhite|Gold|GoldenRod|Gray|Green|GreenYellow|Grey|HoneyDew|HotPink|IndianRed|Indigo|Ivory|Khaki|Lavender|LavenderBlush|LawnGreen|LemonChiffon|LightBlue|LightCoral|LightCyan|LightGoldenRodYellow|LightGray|LightGreen|LightGrey|LightPink|LightSalmon|LightSeaGreen|LightSkyBlue|LightSlateGray|LightSlateGrey|LightSteelBlue|LightYellow|Lime|LimeGreen|Linen|Magenta|Maroon|MediumAquaMarine|MediumBlue|MediumOrchid|MediumPurple|MediumSeaGreen|MediumSlateBlue|MediumSpringGreen|MediumTurquoise|MediumVioletRed|MidnightBlue|MintCream|MistyRose|Moccasin|NavajoWhite|Navy|OldLace|Olive|OliveDrab|Orange|OrangeRed|Orchid|PaleGoldenRod|PaleGreen|PaleTurquoise|PaleVioletRed|PapayaWhip|PeachPuff|Peru|Pink|Plum|PowderBlue|Purple|Red|RosyBrown|RoyalBlue|SaddleBrown|Salmon|SandyBrown|SeaGreen|SeaShell|Sienna|Silver|SkyBlue|SlateBlue|SlateGray|SlateGrey|Snow|SpringGreen|SteelBlue|Tan|Teal|Thistle|Tomato|Turquoise|Violet|Wheat|White|WhiteSmoke|Yellow|YellowGreen)\\b",
+         "name":"variable.source.wsd"
+      },
+
+
+      {
+         "name":"string.quoted.double.source.wsd",
+         "begin":"([A-Za-z_0-9]+) +((-?->)|(<-?-)) +([A-Za-z_0-9]+)(:)",
+         "end":"\\n",
+         "beginCaptures": {
+            "1": { "name": "constant.string.source.wsd" },
+            "2": { "name": "keyword.control.source.wsd" },
+            "5": { "name": "constant.string.source.wsd" }
+          }
+      },
+
+
+      {
+         "end":"\"",
+         "begin":"\"",
+         "name":"string.quoted.double.source.wsd"
+      },
+      {
+         "end":"'",
+         "begin":"'",
+         "name":"string.quoted.single.source.wsd"
+      },
+
+
+      {
+         "match":"\\b[A-Z]+[A-Za-z_0-9]*\\b",
+         "name":"constant.string.source.wsd"
+      },
+      {
+         "match":"\\b[a-z_]+[A-Za-z_0-9]*\\b",
+         "name":"variable.parameter.source.wsd"
+      }
+   ],
+   "name":"Diagram",
+   "scopeName":"source.wsd"
+}
