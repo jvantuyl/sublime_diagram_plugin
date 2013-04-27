@@ -21,13 +21,13 @@ class BaseProcessor(object):
         diagrams = []
         for block in text_blocks:
             try:
-                print "Rendering diagram for block: %r" % block
+                print("Rendering diagram for block: %r" % block)
                 diagram = self.DIAGRAM_CLASS(self, sourceFile, block)
                 rendered = diagram.generate()
                 diagrams.append(rendered)
-            except Exception, e:
-                print "Error processing diagram: %r" % e
-                print repr(block)
+            except Exception as e:
+                print("Error processing diagram: %r" % e)
+                print(repr(block))
         return diagrams
 
 

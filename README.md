@@ -1,7 +1,7 @@
-Overview
-========
+# Overview
 
-This is a plugin that renders diagrams from your selection in Sublime Text 2.
+This is a plugin that renders diagrams from your selection in Sublime Text 2
+or 3.
 
 By default, it binds the (Command / Alt)-M key and registers a command on the
 Command Palette.  Simple select the text for your diagram and trigger the
@@ -16,34 +16,31 @@ If you wish to override the viewer used, create a user version of
 Diagram.sublime-settings file in the usual way.
 
 
-Install
-=======
+# Install
 
 To install from scratch, it's necessary to have:
 
 * Java (download from java.sun.com)
 * Graphviz (I recommend "homebrew" on the Mac)
-* Sublime Text 2
+* Sublime Text 2 or 3
 
 To install, just put a checkout of this project into your Packages directory in
 Sublime Text.
 
 
-Support
-=======
+# Support
 
 Operating Systems:  MacOS X, Linux
 Diagram Types: PlantUML
 Viewers (in order of preference):
- - MacOS X Preview
- - MacOS X QuickLook
- - Eye of Gnome
+
+* MacOS X Preview
+* MacOS X QuickLook
+* Eye of Gnome
 
 Patches to support additional viewers or diagrams are welcome.
 
-
-Install Instructions
-====================
+# Install Instructions
 
 Check out the source directory or download and uncompress the source tarball.
 Put this directoy in the Packages directory for your platform.
@@ -61,9 +58,7 @@ Or as a tarball at:
 
 https://github.com/jvantuyl/sublime_diagram_plugin/tarball/master
 
-
-Thanks
-======
+# Thanks
 
 Special thanks to all of those who have contributed code and feedback,
 including:
