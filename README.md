@@ -63,6 +63,8 @@ https://github.com/jvantuyl/sublime_diagram_plugin/tarball/master
 Special thanks to all of those who have contributed code and feedback,
 including:
 
-* Seán Labastille (Preview support, multi-diagram support)
-* Stanislav Vitko (PlantUML updates)
+* Tobias Bielohlawek (Syntax Highlighting Support)
 * Julian Godesa (UX feedback)
+* Seán Labastille (Preview support, multi-diagram support)
+* Kirk Strauser (Python 3 / SublimeText 3 Support)
+* Stanislav Vitko (PlantUML updates)
