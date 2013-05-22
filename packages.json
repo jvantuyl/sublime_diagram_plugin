@@ -1,0 +1,20 @@
+{
+	"schema_version": "1.2",
+	"packages": [
+		{
+			"name": "Diagram",
+			"description": "A Plug-In for Sublime Text 2 or 3 To Render Diagrams In Your Source Code",
+			"author": "jvantuyl",
+			"homepage": "https://github.com/jvantuyl/sublime_diagram_plugin",
+			"last_modified": "2013-04-27 16:21:57",
+			"platforms": {
+				"osx": [
+					{
+						"version": "2.3",
+						"url": "https://nodeload.github.com/jvantuyl/sublime_diagram_plugin/zip/2.3"
+					}
+				]
+			}
+		}
+	]
+}
