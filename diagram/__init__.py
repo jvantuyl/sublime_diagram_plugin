@@ -3,6 +3,7 @@ from .plantuml import PlantUMLProcessor
 from .quicklook import QuickLookViewer
 from .preview import PreviewViewer
 from .eog import EyeOfGnomeViewer
+from .freedesktop_default import FreedesktopDefaultViewer
 from threading import Thread
 from os.path import splitext
 from sublime import error_message, load_settings
@@ -10,7 +11,7 @@ import sys
 
 INITIALIZED = False
 AVAILABLE_PROCESSORS = [PlantUMLProcessor]
-AVAILABLE_VIEWERS = [QuickLookViewer, EyeOfGnomeViewer, PreviewViewer]
+AVAILABLE_VIEWERS = [QuickLookViewer, EyeOfGnomeViewer, PreviewViewer, FreedesktopDefaultViewer]
 ACTIVE_PROCESSORS = []
 ACTIVE_VIEWER = None
 
