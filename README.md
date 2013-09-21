@@ -45,7 +45,7 @@ You can edit this .wsd file for chinese, and it can render well:
     @enduml
 
 ## support subtitle
-Just like the code above, with a title <<subname>>, you can get a fixed name with 'sourcefilename-subname.png' instead of the random name with template file.
+Just like the code above, with a title `<<subname>>`, you can get a fixed name with 'sourcefilename-subname.png' instead of the random name with template file.
 
 # Install
 
