@@ -17,6 +17,8 @@ class PlantUMLDiagram(BaseDiagram):
                 'java',
                 '-jar',
                 self.proc.plantuml_jar_path,
+                '-charset',
+                'UTF-8',
                 '-pipe',
                 '-tpng'
             ],
