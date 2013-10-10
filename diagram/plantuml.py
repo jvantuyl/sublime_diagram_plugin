@@ -4,12 +4,25 @@ from .base import BaseProcessor
 from subprocess import Popen as execute, PIPE, STDOUT, check_call
 from os.path import abspath, dirname, exists, join
 from tempfile import NamedTemporaryFile
+import os
 
 
 class PlantUMLDiagram(BaseDiagram):
     def __init__(self, processor, sourceFile, text):
         super(PlantUMLDiagram, self).__init__(processor, sourceFile, text)
-        self.file = NamedTemporaryFile(prefix=sourceFile, suffix='.png', delete=False)
+        specified = '.png'
+        pos1 = text.find('title')
+        if pos1 > 0:
+            pos2 = text.find('<<', pos1 + len('title'))
+            pos3 = text.find('>>', pos2 + len('<<'))
+            if pos2 > 0 and pos3 > 0:
+                specified = text[pos2+len('<<'):pos3].strip() + ".png"
+
+        if specified != '.png':
+            filename = sourceFile + specified
+            self.file = open(filename, 'w')
+        else:
+            self.file = NamedTemporaryFile(prefix=sourceFile, suffix=specified, delete=False)
 
     def generate(self):
         puml = execute(
@@ -17,6 +30,8 @@ class PlantUMLDiagram(BaseDiagram):
                 'java',
                 '-jar',
                 self.proc.plantuml_jar_path,
+                '-charset',
+                'UTF-8',
                 '-pipe',
                 '-tpng'
             ],
