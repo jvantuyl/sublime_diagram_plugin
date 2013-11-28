@@ -1,4 +1,4 @@
-{
+﻿{
 	"schema_version": "1.2",
 	"packages": [
 		{
@@ -15,6 +15,12 @@
 					}
 				],
 				"linux": [
+					{
+						"version": "2.3",
+						"url": "https://nodeload.github.com/jvantuyl/sublime_diagram_plugin/zip/2.3"
+					}
+				],
+				"windows": [
 					{
 						"version": "2.3",
 						"url": "https://nodeload.github.com/jvantuyl/sublime_diagram_plugin/zip/2.3"

@@ -52,11 +52,11 @@ Sublime Text should detect the plugin and automatically load it.
 
 The source is available via git at:
 
-https://github.com/jvantuyl/sublime_diagram_plugin.git
+<https://github.com/jvantuyl/sublime_diagram_plugin.git>
 
 Or as a tarball at:
 
-https://github.com/jvantuyl/sublime_diagram_plugin/tarball/master
+<https://github.com/jvantuyl/sublime_diagram_plugin/tarball/master>
 
 # Thanks
 
