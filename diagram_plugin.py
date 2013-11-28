@@ -25,5 +25,6 @@ else:
         try:
             setup()
         except Exception:
-            error_message("Unable to load diagram plugin, check console for details.")
+            error_message("Unable to load diagram plugin, check console "
+                "for details.")
             raise

@@ -1,32 +1,4 @@
-﻿[Требования]
-  - Java https://java.com/getjava
-  - Graphviz http://www.graphviz.org/Download..php
-
-[Схема развертывания системы]
-
-@startuml
-
-skinparam componentStyle uml2
-
-cloud "GoogleDocs" {
-  [GDOC docs]
-}
-
-[GDOC docs] --> [DOCX docs] : Download
-[DOCX docs] --> [MD parts] : DocConvert
-[MD parts] --> [Drupal feed] : book-parts-to-feed
-[MD parts] --> [MD eBook] : book-join
-[MD parts] --> [HTML parts] : pandoc
-[MD eBook] --> [HTML eBook] : pandoc
-[MD eBook] --> [FB2 eBook] : calibre
-[MD eBook] --> [EPUB eBook] : calibre
-[MD eBook] --> [MOBI eBook] : calibre
-
-@enduml
-
-----------------------------------------------------------
-
-@startuml
+﻿@startuml
 
 skinparam component {
   Style uml2
@@ -83,8 +55,6 @@ cloud "Security \n (сервис \n авторизации)" {
 @enduml
 
 --------------------------------------------------------------------------------
-
-[Диаграмма состояний]
 
 @startuml
 

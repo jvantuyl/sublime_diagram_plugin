@@ -1,4 +1,4 @@
-class BaseDiagram(object):
+﻿class BaseDiagram(object):
     def __init__(self, processor, sourceFile, text):
         self.proc = processor
         self.text = text
@@ -10,6 +10,8 @@ class BaseDiagram(object):
 
 class BaseProcessor(object):
     DIAGRAM_CLASS = None
+    CHARSET = None
+    CHECK_ON_STARTUP = True
 
     def load(self):
         raise NotImplementedError('abstract base class is abstract')

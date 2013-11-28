@@ -2,52 +2,59 @@
 from .base import BaseDiagram
 from .base import BaseProcessor
 from subprocess import Popen as execute, PIPE, STDOUT, check_call
-from os import rename
-from os.path import abspath, dirname, exists, join, splitext
+from os.path import abspath, dirname, exists, join
 from tempfile import NamedTemporaryFile
 from sys import platform
 
-def custom_print(value):
-    print("  *  [" + __name__ + "] " + value)
 
 class PlantUMLDiagram(BaseDiagram):
+    def __init__(self, processor, sourceFile, text):
+        super(PlantUMLDiagram, self).__init__(processor, sourceFile, text)
+        self.file = NamedTemporaryFile(prefix=sourceFile, suffix='.png', delete=False)
 
     def generate(self):
 
-        source_file = NamedTemporaryFile(suffix='.wsd', delete=False)
-        custom_print("source_file.name = " + source_file.name)
-        with open(source_file.name, "w") as text_file:
-            text_file.write(self.text.encode('UTF-8'))
+        command = [
+            'java',
+            '-jar',
+            self.proc.plantuml_jar_path,
+            '-pipe',
+            '-tpng'
+        ]
 
-        self.command = 'java -jar' + ' \"' + self.proc.plantuml_jar_path + '\"' + ' -charset UTF-8' + ' \"' + source_file.name + '\"'
-        custom_print("command = " + self.command)
+        charset = self.proc.CHARSET
+        if(charset):
+            print('using charset: ' + charset)
+            command.append("-charset")
+            command.append(charset)
 
-        puml = execute(self.command)
-        puml.communicate()
-
+        puml = execute(command, stdin=PIPE, stdout=self.file)
+        puml.communicate(input=self.text.encode('UTF-8'))
         if puml.returncode != 0:
-            custom_print("Error Processing Diagram, ret.code = " + str(puml.returncode))
-            # custom_print(self.text)
+            print("Error Processing Diagram:")
+            # print(self.text)
             return
         else:
-            self.file = open(splitext(source_file.name)[0] + ".png")
-            custom_print("output filename = " + self.file.name)
             return self.file
+
 
 class PlantUMLProcessor(BaseProcessor):
     DIAGRAM_CLASS = PlantUMLDiagram
-    PLANTUML_VERSION = 7986
+    PLANTUML_VERSION = 7981
     PLANTUML_VERSION_STRING = 'PlantUML version %s' % PLANTUML_VERSION
 
     def load(self):
         self.check_dependencies()
         self.find_plantuml_jar()
-        # self.check_plantuml_version()
-        # self.check_plantuml_functionality()
+
+        if(self.CHECK_ON_STARTUP):
+            self.check_plantuml_version()
+            self.check_plantuml_functionality()
 
     def check_dependencies(self):
-        custom_print("os platform: " + platform)
-        if(platform not in ("win32",)):
+        if(platform in ("win32",)):
+            print("Well... Let's pretend Java is installed, for now.")
+        else:
             if not check_call("which java > /dev/null", shell=True) == 0:
                 raise Exception("can't find Java")
 
@@ -66,8 +73,8 @@ class PlantUMLProcessor(BaseProcessor):
         (stdout, stderr) = puml.communicate()
         dot_output = str(stdout)
 
-        custom_print("PlantUML Smoke Check:")
-        custom_print(dot_output)
+        print("PlantUML Smoke Check:")
+        print(dot_output)
 
         if (not 'OK' in dot_output) or ('Error' in dot_output):
             raise Exception('PlantUML does not appear functional')
@@ -84,7 +91,7 @@ class PlantUMLProcessor(BaseProcessor):
         )
         if not exists(self.plantuml_jar_path):
             raise Exception("can't find " + self.plantuml_jar_file)
-        custom_print("Detected %r" % (self.plantuml_jar_path,))
+        print("Detected %r" % (self.plantuml_jar_path,))
 
     def check_plantuml_version(self):
         puml = execute(
@@ -101,8 +108,8 @@ class PlantUMLProcessor(BaseProcessor):
         (stdout, stderr) = puml.communicate()
         version_output = stdout
 
-        custom_print("Version Detection:")
-        custom_print(version_output)
+        print("Version Detection:")
+        print(version_output)
 
         if not puml.returncode == 0:
             raise Exception("PlantUML returned an error code")
@@ -110,9 +117,9 @@ class PlantUMLProcessor(BaseProcessor):
             raise Exception("error verifying PlantUML version")
 
     def extract_blocks(self, view):
+		# If any Region is selected - trying to convert it, otherwise converting all @start-@end blocks in view
         sel = view.sel()
-        custom_print("len(sel) = " + str(len(sel)))
-        if(len(sel) <= 0 or (sel[0].a == sel[0].b)):
+        if(sel[0].a == sel[0].b):
             pairs = (
                 (
                     start, view.find('@end', start.begin()))
