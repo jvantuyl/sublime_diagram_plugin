@@ -1,4 +1,4 @@
-from sublime_plugin import TextCommand
+﻿from sublime_plugin import TextCommand
 from sublime import error_message, version
 try:
     from .diagram import setup, process
@@ -25,6 +25,5 @@ else:
         try:
             setup()
         except Exception:
-            error_message("Unable to load diagram plugin, check console "
-                "for details.")
+            error_message("Unable to load diagram plugin, check console for details.")
             raise

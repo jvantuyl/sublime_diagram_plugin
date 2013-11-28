@@ -1,2 +1,6 @@
 *.pyc
 *.swp
+
+/Syntaxes/diagram.tmLanguage.cache
+
+/err.txt
