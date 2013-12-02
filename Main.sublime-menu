@@ -22,7 +22,7 @@
                             { "caption": "-" },
                             {
                                 "command": "open_file",
-                                "args": {"file": "${packages}/sublime_diagram_plugin/README.txt"},
+                                "args": {"file": "${packages}/sublime_diagram_plugin/README.md"},
                                 "caption": "README"
                             },
                             { "caption": "-" },
