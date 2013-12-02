@@ -79,3 +79,4 @@ including:
 * Seán Labastille (Preview support, multi-diagram support)
 * Kirk Strauser (Python 3 / SublimeText 3 Support)
 * Stanislav Vitko (PlantUML updates)
+* Constantine ? (Windows Viewer, Charset Support, various other fixes)
