@@ -1,0 +1,83 @@
+﻿@startuml
+
+skinparam component {
+  Style uml2
+  BackgroundColor #FEFECE
+}
+node "Сервер БД" {
+  database "MSSQL / ORA \n " {
+    [DB] as DB
+  }
+}
+node "Сервер бизнес-логики" {
+  frame "Windows Service Host" {
+    package "GUIService" {
+      [GuiService] as GuiService
+    }
+    package "ExtService" {
+      [ExtService] as ExtService
+    }
+  }
+}
+node "Сервер обновления \n (может располагаться \n на сервере бизнес-логики)" {
+  folder "Удаленное хранилище" {
+    [System Storage] as UpdateStorage
+  }
+}
+node "Клиентский Компьютер" {
+  folder "Локальное хранилище" {
+    [System Client] as Client
+  }
+}
+cloud "Внешние системы" {
+  [Внешние системы] as ExtSystem
+}
+
+cloud "Service Locator" {
+  [Service Locator] as ServiceLocator
+}
+cloud "Службы OSSBSS" {
+  [Системы OSSBSS] as OSSBSS
+}
+cloud "Security \n (сервис \n авторизации)" {
+  [OSSBSS Security] as Security
+}
+[Client]          --> [GuiService]      : WCF HTTP/TCP
+[ExtSystem]       --> [ExtService]      : WCF HTTP
+[GuiService]      --> [DB]              : OSSBSS.DbAccessLayer
+[GuiService]      --> [UpdateStorage]   : SMB
+[GuiService]      --> [Security]        : WCF
+[GuiService]      --> [ServiceLocator]  : WCF
+[ServiceLocator]  --> [OSSBSS]          : WCF
+[ExtService]      --> [DB]              : OSSBSS.DbAccessLayer
+[ExtService]      ..> [GuiService]      : inproc
+
+@enduml
+
+--------------------------------------------------------------------------------
+
+@startuml
+
+[*]       --> proposed  : Внешняя \n заявка \n пришла \n в System
+proposed  --> active    : Заявка \n принята \n в работу
+proposed  --> rejected  : Оператору \n не понравилась \n заявка
+proposed  --> cancelled : Заявка \n отменена \n внешней \n системой \n до проведения \n работ
+active    --> resolved  : Назначение \n в CLB \n проведено
+active    --> proposed  : Заявка \n откреплена \n (переход \n разрешен \n если \n не было \n назначений)
+active    --> cancelled : Заявка \n отменена \n внешней \n системой \n или \n power-юзером, \n данные \n разрезервируются
+active    --> rejected  : Нет тех. \n возможности
+resolved  --> completed : Назначение \n подтверждено
+resolved  --> active    : Коррекция \n назначения
+resolved  --> cancelled : Назначение \n отменено
+completed --> [*]
+rejected  --> [*]
+cancelled --> [*]
+
+proposed  : Новые
+active    : В работе
+resolved  : Обработанные
+completed : Подтвержденные
+cancelled : Отмененные
+rejected  : Отклоненные
+
+@enduml

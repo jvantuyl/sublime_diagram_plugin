@@ -25,6 +25,11 @@
                                 "args": {"file": "${packages}/sublime_diagram_plugin/README.md"},
                                 "caption": "README"
                             },
+                            {
+                                "command": "open_file",
+                                "args": {"file": "${packages}/sublime_diagram_plugin/samples/EXAMPLE.wsd"},
+                                "caption": "EXAMPLE"
+                            },
                             { "caption": "-" },
                             {
                                 "command": "open_file",
