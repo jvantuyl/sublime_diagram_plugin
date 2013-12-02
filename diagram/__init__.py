@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+﻿from __future__ import absolute_import
 from .plantuml import PlantUMLProcessor
 from .quicklook import QuickLookViewer
 from .preview import PreviewViewer
