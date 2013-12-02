@@ -15,8 +15,7 @@ they will be cleaned up unless Sublime Text dies a particularly horrible death.
 If you wish to override the viewer used, create a user version of
 Diagram.sublime-settings file in the usual way.
 
-
-# Install
+## Install
 
 To install from scratch, it's necessary to have:
 
@@ -28,7 +27,7 @@ To install, just put a checkout of this project into your Packages directory in
 Sublime Text.
 
 
-# Support
+## Support
 
 Operating Systems:  MacOS X, Linux
 Diagram Types: PlantUML
@@ -40,7 +39,7 @@ Viewers (in order of preference):
 
 Patches to support additional viewers or diagrams are welcome.
 
-# Install Instructions
+## Install Instructions
 
 Check out the source directory or download and uncompress the source tarball.
 Put this directoy in the Packages directory for your platform.
@@ -52,13 +51,13 @@ Sublime Text should detect the plugin and automatically load it.
 
 The source is available via git at:
 
-https://github.com/jvantuyl/sublime_diagram_plugin.git
+<https://github.com/jvantuyl/sublime_diagram_plugin.git>
 
 Or as a tarball at:
 
-https://github.com/jvantuyl/sublime_diagram_plugin/tarball/master
+<https://github.com/jvantuyl/sublime_diagram_plugin/tarball/master>
 
-# Thanks
+## Thanks
 
 Special thanks to all of those who have contributed code and feedback,
 including:
