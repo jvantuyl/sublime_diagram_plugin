@@ -1,3 +1,4 @@
 {
 	"viewer" : "Preview" // Preview, QuickLook or EyeOfGnome
+	"check_on_startup": true,
 }

@@ -10,6 +10,7 @@
 
 class BaseProcessor(object):
     DIAGRAM_CLASS = None
+    CHECK_ON_STARTUP = True
 
     def load(self):
         raise NotImplementedError('abstract base class is abstract')
