@@ -12,16 +12,22 @@ class PlantUMLDiagram(BaseDiagram):
         self.file = NamedTemporaryFile(prefix=sourceFile, suffix='.png', delete=False)
 
     def generate(self):
-        puml = execute(
-            [
-                'java',
-                '-jar',
-                self.proc.plantuml_jar_path,
-                '-pipe',
-                '-tpng'
-            ],
-            stdin=PIPE,
-            stdout=self.file)
+
+        command = [
+            'java',
+            '-jar',
+            self.proc.plantuml_jar_path,
+            '-pipe',
+            '-tpng'
+        ]
+
+        charset = self.proc.CHARSET
+        if(charset):
+            print('using charset: ' + charset)
+            command.append("-charset")
+            command.append(charset)
+
+        puml = execute(command, stdin=PIPE, stdout=self.file)
         puml.communicate(input=self.text.encode('UTF-8'))
         if puml.returncode != 0:
             print("Error Processing Diagram:")
