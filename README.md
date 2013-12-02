@@ -58,6 +58,17 @@ Or as a tarball at:
 
 <https://github.com/jvantuyl/sublime_diagram_plugin/tarball/master>
 
+## Example Results
+
+### Component Diagram 1
+![component1](./samples/component1.png)
+
+### Component Diagram 2
+![component2](./samples/component2.png)
+
+### State Diagram
+![state1](./samples/state1.png)
+
 ## Thanks
 
 Special thanks to all of those who have contributed code and feedback,
