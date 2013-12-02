@@ -130,8 +130,13 @@ class PlantUMLProcessor(BaseProcessor):
             raise Exception("error verifying PlantUML version")
 
     def extract_blocks(self, view):
-        pairs = (
-            (start, view.find('@end', start.begin()))
-            for start in view.find_all('@start')
-        )
-        return (view.full_line(start.cover(end)) for start, end in pairs)
+		# If any Region is selected - trying to convert it, otherwise converting all @start-@end blocks in view
+        sel = view.sel()
+        if(sel[0].a == sel[0].b):
+            pairs = (
+                    (start, view.find('@end', start.begin()),)
+                    for start in view.find_all('@start')
+                )
+            return (view.full_line(start.cover(end)) for start, end in pairs)
+        else:
+            return sel
