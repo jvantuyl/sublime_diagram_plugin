@@ -22,7 +22,6 @@ AVAILABLE_VIEWERS = [
 ACTIVE_PROCESSORS = []
 ACTIVE_VIEWER = None
 
-
 def setup():
     global INITIALIZED
     global ACTIVE_PROCESSORS
