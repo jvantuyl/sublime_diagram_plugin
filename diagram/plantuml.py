@@ -1,9 +1,10 @@
-from __future__ import absolute_import
+﻿from __future__ import absolute_import
 from .base import BaseDiagram
 from .base import BaseProcessor
 from subprocess import Popen as execute, PIPE, STDOUT, check_call
 from os.path import abspath, dirname, exists, join
 from tempfile import NamedTemporaryFile
+from sys import platform
 
 
 class PlantUMLDiagram(BaseDiagram):
@@ -12,20 +13,26 @@ class PlantUMLDiagram(BaseDiagram):
         self.file = NamedTemporaryFile(prefix=sourceFile, suffix='.png', delete=False)
 
     def generate(self):
-        puml = execute(
-            [
-                'java',
-                '-jar',
-                self.proc.plantuml_jar_path,
-                '-pipe',
-                '-tpng'
-            ],
-            stdin=PIPE,
-            stdout=self.file)
+
+        command = [
+            'java',
+            '-jar',
+            self.proc.plantuml_jar_path,
+            '-pipe',
+            '-tpng'
+        ]
+
+        charset = self.proc.CHARSET
+        if(charset):
+            print('using charset: ' + charset)
+            command.append("-charset")
+            command.append(charset)
+
+        puml = execute(command, stdin=PIPE, stdout=self.file)
         puml.communicate(input=self.text.encode('UTF-8'))
         if puml.returncode != 0:
             print("Error Processing Diagram:")
-            print(self.text)
+            # print(self.text)
             return
         else:
             return self.file
@@ -39,12 +46,17 @@ class PlantUMLProcessor(BaseProcessor):
     def load(self):
         self.check_dependencies()
         self.find_plantuml_jar()
-        self.check_plantuml_version()
-        self.check_plantuml_functionality()
+
+        if(self.CHECK_ON_STARTUP):
+            self.check_plantuml_version()
+            self.check_plantuml_functionality()
 
     def check_dependencies(self):
-        if not check_call("which java > /dev/null", shell=True) == 0:
-            raise Exception("can't find Java")
+        if(platform in ("win32",)):
+            print("Well... Let's pretend Java is installed, for now.")
+        else:
+            if not check_call("which java > /dev/null", shell=True) == 0:
+                raise Exception("can't find Java")
 
     def check_plantuml_functionality(self):
         puml = execute(
@@ -105,9 +117,14 @@ class PlantUMLProcessor(BaseProcessor):
             raise Exception("error verifying PlantUML version")
 
     def extract_blocks(self, view):
-        pairs = (
-            (
-                start, view.find('@end', start.begin()))
-                for start in view.find_all('@start')
-            )
-        return (view.full_line(start.cover(end)) for start, end in pairs)
+		# If any Region is selected - trying to convert it, otherwise converting all @start-@end blocks in view
+        sel = view.sel()
+        if(sel[0].a == sel[0].b):
+            pairs = (
+                (
+                    start, view.find('@end', start.begin()))
+                    for start in view.find_all('@start')
+                )
+            return (view.full_line(start.cover(end)) for start, end in pairs)
+        else:
+            return sel

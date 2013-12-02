@@ -1,9 +1,10 @@
-from __future__ import absolute_import
+﻿from __future__ import absolute_import
 from .plantuml import PlantUMLProcessor
 from .quicklook import QuickLookViewer
 from .preview import PreviewViewer
 from .eog import EyeOfGnomeViewer
 from .freedesktop_default import FreedesktopDefaultViewer
+from .windows_default_viewer import WindowsDefaultViewer
 from threading import Thread
 from os.path import splitext
 from sublime import error_message, load_settings
@@ -11,10 +12,9 @@ import sys
 
 INITIALIZED = False
 AVAILABLE_PROCESSORS = [PlantUMLProcessor]
-AVAILABLE_VIEWERS = [QuickLookViewer, EyeOfGnomeViewer, PreviewViewer, FreedesktopDefaultViewer]
+AVAILABLE_VIEWERS = [QuickLookViewer, EyeOfGnomeViewer, PreviewViewer, FreedesktopDefaultViewer, WindowsDefaultViewer]
 ACTIVE_PROCESSORS = []
 ACTIVE_VIEWER = None
-
 
 def setup():
     global INITIALIZED
@@ -31,6 +31,8 @@ def setup():
         try:
             print("Loading processor class: %r" % processor)
             proc = processor()
+            proc.CHARSET = sublime_settings.get('charset')
+            proc.CHECK_ON_STARTUP = sublime_settings.get('check_on_startup')
             proc.load()
             ACTIVE_PROCESSORS.append(proc)
             print("Loaded processor: %r" % proc)
@@ -113,7 +115,7 @@ def render_and_view(sourceFile, diagrams):
     diagram_files = []
 
     for processor, blocks in diagrams:
-        diagram_files.extend(processor.process(sourceFile,blocks))
+        diagram_files.extend(processor.process(sourceFile, blocks))
 
     if diagram_files:
         print("%r viewing %r" % (ACTIVE_VIEWER, [d.name for d in diagram_files]))

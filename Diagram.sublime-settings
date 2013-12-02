@@ -1,3 +1,5 @@
 {
-	"viewer" : "Preview" // Preview, QuickLook or EyeOfGnome
+	"viewer" : "Preview", // Preview, QuickLook, EyeOfGnome, WindowsDefaultViewer
+	"check_on_startup": true,
+	"charset": null // Can be "UTF-8" - to support non-latin text in diagram
 }

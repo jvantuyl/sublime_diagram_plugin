@@ -1,4 +1,4 @@
-from .base import BaseViewer
+﻿from .base import BaseViewer
 import sys
 from subprocess import check_call, Popen as run_command
 
