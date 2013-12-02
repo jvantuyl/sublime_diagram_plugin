@@ -39,8 +39,10 @@ class PlantUMLProcessor(BaseProcessor):
     def load(self):
         self.check_dependencies()
         self.find_plantuml_jar()
-        self.check_plantuml_version()
-        self.check_plantuml_functionality()
+
+        if(self.CHECK_ON_STARTUP):
+            self.check_plantuml_version()
+            self.check_plantuml_functionality()
 
     def check_dependencies(self):
         if not check_call("which java > /dev/null", shell=True) == 0:
