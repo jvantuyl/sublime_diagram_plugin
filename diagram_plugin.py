@@ -1,4 +1,4 @@
-from sublime_plugin import TextCommand
+﻿from sublime_plugin import TextCommand
 from sublime import error_message, version
 try:
     from .diagram import setup, process

@@ -1,4 +1,4 @@
-class BaseDiagram(object):
+﻿class BaseDiagram(object):
     def __init__(self, processor, sourceFile, text):
         self.proc = processor
         self.text = text
