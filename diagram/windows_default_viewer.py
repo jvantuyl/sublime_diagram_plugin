@@ -1,5 +1,5 @@
-﻿from .base import BaseViewer
-from subprocess import Popen as execute
+from .base import BaseViewer
+from os import startfile as execute
 from sys import platform
 
 class WindowsDefaultViewer(BaseViewer):
@@ -9,4 +9,4 @@ class WindowsDefaultViewer(BaseViewer):
 
     def view(self, diagram_files):
         for f in diagram_files:
-            execute("explorer \"" + f.name + "\"")
+            execute(f.name)
