@@ -1,6 +1,12 @@
 ﻿from .base import BaseViewer
-from subprocess import Popen as execute
 from sys import platform
+
+try:
+    from os import startfile as execute
+except ImportError:
+    def execute(*args, **kwargs):
+        raise Exception('unable to import os.startfile')
+
 
 class WindowsDefaultViewer(BaseViewer):
     def load(self):
@@ -9,4 +15,4 @@ class WindowsDefaultViewer(BaseViewer):
 
     def view(self, diagram_files):
         for f in diagram_files:
-            execute("explorer \"" + f.name + "\"")
+            execute(f.name)
