@@ -4,7 +4,7 @@ from .base import BaseProcessor
 from subprocess import Popen as execute, PIPE, STDOUT, call
 from os.path import abspath, dirname, exists, join
 from tempfile import NamedTemporaryFile
-from sys import platform
+from platform import system
 
 IS_MSWINDOWS = (platform == "win32")
 CREATE_NO_WINDOW = 0x08000000  # See MSDN, http://goo.gl/l4OKNe

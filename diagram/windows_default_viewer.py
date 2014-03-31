@@ -1,5 +1,5 @@
 ﻿from .base import BaseViewer
-from sys import platform
+from platform import system
 
 try:
     from os import startfile as execute
@@ -10,7 +10,7 @@ except ImportError:
 
 class WindowsDefaultViewer(BaseViewer):
     def load(self):
-        if platform not in ('win32',):
+        if system() != 'Windows':
             raise Exception("Currently only supported on Windows")
 
     def view(self, diagram_files):
