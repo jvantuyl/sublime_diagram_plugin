@@ -4,6 +4,8 @@ from .base import BaseProcessor
 from subprocess import Popen as execute, PIPE, STDOUT, check_call
 from os.path import abspath, dirname, exists, join
 from tempfile import NamedTemporaryFile
+import sys
+import os
 
 
 class PlantUMLDiagram(BaseDiagram):
@@ -43,8 +45,14 @@ class PlantUMLProcessor(BaseProcessor):
         self.check_plantuml_functionality()
 
     def check_dependencies(self):
-        if not check_call("which java > /dev/null", shell=True) == 0:
-            raise Exception("can't find Java")
+        if sys.platform in ('win32',):
+            try:
+                os.environ["JAVA_HOME"]
+            except KeyError:
+                raise Exception("Win32: JAVA_HOME not defined")
+        else:
+            if not check_call("which java > /dev/null", shell=True) == 0:
+                raise Exception("can't find Java")
 
     def check_plantuml_functionality(self):
         puml = execute(

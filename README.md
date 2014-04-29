@@ -30,7 +30,7 @@ Sublime Text.
 
 # Support
 
-Operating Systems:  MacOS X, Linux
+Operating Systems:  MacOS X, Linux, Windows (with default system viewer)
 Diagram Types: PlantUML
 Viewers (in order of preference):
 
