@@ -6,7 +6,8 @@ from subprocess import check_call, Popen as run_command
 
 class WindowsViewer(BaseViewer):
     def load(self):
-		0
+		if not sys.platform in ('win32',):
+			raise Exception("WindowsViewer only supported on Windows platforms")
 		
     def view(self, diagram_files):
 		for diagram_file in diagram_files:
