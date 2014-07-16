@@ -9,16 +9,18 @@ from tempfile import NamedTemporaryFile
 class PlantUMLDiagram(BaseDiagram):
     def __init__(self, processor, sourceFile, text):
         super(PlantUMLDiagram, self).__init__(processor, sourceFile, text)
-        self.file = NamedTemporaryFile(prefix=sourceFile, suffix='.png', delete=False)
+        self.file = NamedTemporaryFile(prefix=sourceFile, suffix='.pdf', delete=False)
 
     def generate(self):
         puml = execute(
             [
                 'java',
-                '-jar',
-                self.proc.plantuml_jar_path,
+                '-cp',
+                abspath(join(dirname(__file__),"*")),
+                'net.sourceforge.plantuml.Run',
                 '-pipe',
-                '-tpng'
+                '-Sshadowing=false',
+                '-tpdf'
             ],
             stdin=PIPE,
             stdout=self.file)
