@@ -18,7 +18,9 @@ class PlantUMLDiagram(BaseDiagram):
                 '-jar',
                 self.proc.plantuml_jar_path,
                 '-pipe',
-                '-tpng'
+                '-tpng',
+                '-charset',
+                'UTF-8'
             ],
             stdin=PIPE,
             stdout=self.file)
