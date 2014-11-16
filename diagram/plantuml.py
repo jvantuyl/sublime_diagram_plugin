@@ -6,9 +6,9 @@ from os.path import abspath, dirname, exists, join
 from tempfile import NamedTemporaryFile
 from platform import system
 
-IS_MSWINDOWS = (platform == "win32")
+IS_MSWINDOWS = (system() == 'Windows')
 CREATE_NO_WINDOW = 0x08000000  # See MSDN, http://goo.gl/l4OKNe
-DEFAULT_CREATION_FLAGS = (CREATE_NO_WINDOW if IS_MSWINDOWS else None)
+EXTRA_CALL_ARGS = {'creationflags': CREATE_NO_WINDOW} if IS_MSWINDOWS else {}
 
 
 class PlantUMLDiagram(BaseDiagram):
@@ -36,7 +36,7 @@ class PlantUMLDiagram(BaseDiagram):
         puml = execute(
             command,
             stdin=PIPE, stdout=self.file,
-            creationflags=DEFAULT_CREATION_FLAGS
+            **EXTRA_CALL_ARGS
         )
         puml.communicate(input=self.text.encode('UTF-8'))
         if puml.returncode != 0:
@@ -63,7 +63,7 @@ class PlantUMLProcessor(BaseProcessor):
     def check_dependencies(self):
         has_java = call(
             ["java", "-version"],
-            creationflags=DEFAULT_CREATION_FLAGS
+            **EXTRA_CALL_ARGS
         )
 
         if has_java is not 0:
@@ -79,7 +79,7 @@ class PlantUMLProcessor(BaseProcessor):
             ],
             stdout=PIPE,
             stderr=STDOUT,
-            creationflags=DEFAULT_CREATION_FLAGS
+            **EXTRA_CALL_ARGS
         )
 
         (stdout, stderr) = puml.communicate()
@@ -115,7 +115,7 @@ class PlantUMLProcessor(BaseProcessor):
             ],
             stdout=PIPE,
             stderr=STDOUT,
-            creationflags=DEFAULT_CREATION_FLAGS
+            **EXTRA_CALL_ARGS
         )
 
         (stdout, stderr) = puml.communicate()
