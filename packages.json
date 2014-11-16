@@ -10,20 +10,20 @@
 			"platforms": {
 				"osx": [
 					{
-						"version": "2.3",
-						"url": "https://nodeload.github.com/jvantuyl/sublime_diagram_plugin/zip/2.3"
+						"version": "2.4",
+						"url": "https://nodeload.github.com/jvantuyl/sublime_diagram_plugin/zip/2.4"
 					}
 				],
 				"linux": [
 					{
-						"version": "2.3",
-						"url": "https://nodeload.github.com/jvantuyl/sublime_diagram_plugin/zip/2.3"
+						"version": "2.4",
+						"url": "https://nodeload.github.com/jvantuyl/sublime_diagram_plugin/zip/2.4"
 					}
 				],
 				"windows": [
 					{
-						"version": "2.3",
-						"url": "https://nodeload.github.com/jvantuyl/sublime_diagram_plugin/zip/2.3"
+						"version": "2.4",
+						"url": "https://nodeload.github.com/jvantuyl/sublime_diagram_plugin/zip/2.4"
 					}
 				]				
 			}
