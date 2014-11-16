@@ -12,7 +12,13 @@ import sys
 
 INITIALIZED = False
 AVAILABLE_PROCESSORS = [PlantUMLProcessor]
-AVAILABLE_VIEWERS = [QuickLookViewer, EyeOfGnomeViewer, PreviewViewer, FreedesktopDefaultViewer, WindowsViewer]
+AVAILABLE_VIEWERS = [
+    QuickLookViewer,
+    EyeOfGnomeViewer,
+    PreviewViewer,
+    FreedesktopDefaultViewer,
+    WindowsViewer
+]
 ACTIVE_PROCESSORS = []
 ACTIVE_VIEWER = None
 
@@ -114,7 +120,7 @@ def render_and_view(sourceFile, diagrams):
     diagram_files = []
 
     for processor, blocks in diagrams:
-        diagram_files.extend(processor.process(sourceFile,blocks))
+        diagram_files.extend(processor.process(sourceFile, blocks))
 
     if diagram_files:
         print("%r viewing %r" % (ACTIVE_VIEWER, [d.name for d in diagram_files]))
