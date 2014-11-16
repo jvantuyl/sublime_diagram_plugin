@@ -4,8 +4,7 @@ from .quicklook import QuickLookViewer
 from .preview import PreviewViewer
 from .eog import EyeOfGnomeViewer
 from .freedesktop_default import FreedesktopDefaultViewer
-from .windows import WindowsViewer
-from .windows_default_viewer import WindowsDefaultViewer
+from .windows import WindowsDefaultViewer
 from threading import Thread
 from os.path import splitext
 from sublime import error_message, load_settings
@@ -19,7 +18,6 @@ AVAILABLE_VIEWERS = [
     PreviewViewer,
     FreedesktopDefaultViewer,
     WindowsDefaultViewer,
-    WindowsViewer
 ]
 ACTIVE_PROCESSORS = []
 ACTIVE_VIEWER = None

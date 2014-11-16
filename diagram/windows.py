@@ -1,15 +1,20 @@
-from .base import BaseViewer
-import sys
-import os
+﻿from .base import BaseViewer
+from platform import system
+
+try:
+    from os import startfile as execute
+except ImportError:
+    def execute(*args, **kwargs):
+        raise Exception('unable to import os.startfile')
 
 
-class WindowsViewer(BaseViewer):
+class WindowsDefaultViewer(BaseViewer):
     def load(self):
-        if sys.platform not in ('win32',):
+        if system() != 'Windows':
             raise Exception(
                 "WindowsViewer only supported on Windows platforms"
             )
 
     def view(self, diagram_files):
-        for diagram_file in diagram_files:
-            os.startfile(diagram_file.name)
+        for f in diagram_files:
+            execute(f.name)
