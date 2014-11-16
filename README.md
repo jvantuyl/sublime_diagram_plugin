@@ -80,3 +80,5 @@ including:
 * Kirk Strauser (Python 3 / SublimeText 3 Support)
 * Stanislav Vitko (PlantUML updates)
 * Constantine ? (Windows Viewer, Charset Support, various other fixes)
+* Marcelo Da Cruz Pinto (Windows Viewer)
+* Mysterious GitHub User Lusitania (PEP8 Cleanup, Windows Improvements)
