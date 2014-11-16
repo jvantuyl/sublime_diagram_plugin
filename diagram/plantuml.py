@@ -1,11 +1,14 @@
 from __future__ import absolute_import
 from .base import BaseDiagram
 from .base import BaseProcessor
-from subprocess import Popen as execute, PIPE, STDOUT, check_call
+from subprocess import Popen as execute, PIPE, STDOUT, call
 from os.path import abspath, dirname, exists, join
 from tempfile import NamedTemporaryFile
 import sys
-import os
+
+IS_MSWINDOWS = (sys.platform == "win32")
+CREATE_NO_WINDOW = 0x08000000  # See MSDN, http://goo.gl/l4OKNe
+DEFAULT_CREATION_FLAGS = (CREATE_NO_WINDOW if IS_MSWINDOWS else None)
 
 
 class PlantUMLDiagram(BaseDiagram):
@@ -23,7 +26,9 @@ class PlantUMLDiagram(BaseDiagram):
                 '-tpng'
             ],
             stdin=PIPE,
-            stdout=self.file)
+            stdout=self.file,
+            creationflags=DEFAULT_CREATION_FLAGS
+        )
         puml.communicate(input=self.text.encode('UTF-8'))
         if puml.returncode != 0:
             print("Error Processing Diagram:")
@@ -45,14 +50,13 @@ class PlantUMLProcessor(BaseProcessor):
         self.check_plantuml_functionality()
 
     def check_dependencies(self):
-        if sys.platform in ('win32',):
-            try:
-                os.environ["JAVA_HOME"]
-            except KeyError:
-                raise Exception("Win32: JAVA_HOME not defined")
-        else:
-            if not check_call("which java > /dev/null", shell=True) == 0:
-                raise Exception("can't find Java")
+        has_java = call(
+            ["java", "-version"],
+            creationflags=DEFAULT_CREATION_FLAGS
+        )
+
+        if has_java is not 0:
+            raise Exception("can't find Java")
 
     def check_plantuml_functionality(self):
         puml = execute(
@@ -63,7 +67,8 @@ class PlantUMLProcessor(BaseProcessor):
                 '-testdot'
             ],
             stdout=PIPE,
-            stderr=STDOUT
+            stderr=STDOUT,
+            creationflags=DEFAULT_CREATION_FLAGS
         )
 
         (stdout, stderr) = puml.communicate()
@@ -72,7 +77,7 @@ class PlantUMLProcessor(BaseProcessor):
         print("PlantUML Smoke Check:")
         print(dot_output)
 
-        if (not 'OK' in dot_output) or ('Error' in dot_output):
+        if ('OK' not in dot_output) or ('Error' in dot_output):
             raise Exception('PlantUML does not appear functional')
 
     def find_plantuml_jar(self):
@@ -98,7 +103,8 @@ class PlantUMLProcessor(BaseProcessor):
                 '-version'
             ],
             stdout=PIPE,
-            stderr=STDOUT
+            stderr=STDOUT,
+            creationflags=DEFAULT_CREATION_FLAGS
         )
 
         (stdout, stderr) = puml.communicate()
@@ -114,8 +120,7 @@ class PlantUMLProcessor(BaseProcessor):
 
     def extract_blocks(self, view):
         pairs = (
-            (
-                start, view.find('@end', start.begin()))
-                for start in view.find_all('@start')
-            )
+            (start, view.find('@end', start.begin()))
+            for start in view.find_all('@start')
+        )
         return (view.full_line(start.cover(end)) for start, end in pairs)
