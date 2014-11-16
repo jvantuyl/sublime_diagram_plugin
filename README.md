@@ -81,4 +81,4 @@ including:
 * Stanislav Vitko (PlantUML updates)
 * Constantine ? (Windows Viewer, Charset Support, various other fixes)
 * Marcelo Da Cruz Pinto (Windows Viewer)
-* Mysterious GitHub User Lusitania (PEP8 Cleanup, Windows Improvements)
+* Peter Ertel (PEP8 Cleanup, Windows Improvements)
