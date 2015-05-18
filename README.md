@@ -82,3 +82,4 @@ including:
 * Constantine ? (Windows Viewer, Charset Support, various other fixes)
 * Marcelo Da Cruz Pinto (Windows Viewer)
 * Peter Ertel (PEP8 Cleanup, Windows Improvements)
+* Juan Cabrera (Bumped plantuml version to 8024)
