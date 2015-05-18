@@ -75,11 +75,11 @@ Special thanks to all of those who have contributed code and feedback,
 including:
 
 * Tobias Bielohlawek (Syntax Highlighting Support)
-* Julian Godesa (UX feedback)
-* Seán Labastille (Preview support, multi-diagram support)
+* Julian Godesa (UX Feedback)
+* Seán Labastille (Preview Support, Multi-Diagram Support)
 * Kirk Strauser (Python 3 / SublimeText 3 Support)
-* Stanislav Vitko (PlantUML updates)
-* Constantine ? (Windows Viewer, Charset Support, various other fixes)
+* Stanislav Vitko (PlantUML Updates)
+* Constantine ? (Windows Viewer, Charset Support, Various Other Fixes)
 * Marcelo Da Cruz Pinto (Windows Viewer)
 * Peter Ertel (PEP8 Cleanup, Windows Improvements)
-* Juan Cabrera (Bumped plantuml version to 8024)
+* Juan Cabrera (Version Updates)
