@@ -31,7 +31,9 @@ def setup():
     ACTIVE_VIEWER = None
 
     sublime_settings = load_settings("Diagram.sublime-settings")
-    print("Viewer Setting: " + sublime_settings.get("viewer"))
+    viewer_setting = sublime_settings.get("viewer")
+
+    print("Viewer Setting: %r" % viewer_setting)
 
     for processor in AVAILABLE_PROCESSORS:
         try:
@@ -49,7 +51,7 @@ def setup():
         raise Exception('No working processors found!')
 
     for viewer in AVAILABLE_VIEWERS:
-        if viewer.__name__.find(sublime_settings.get("viewer")) != -1:
+        if viewer_setting is not None and viewer_setting in viewer.__name__:
             try:
                 print("Loading viewer class from configuration: %r" % viewer)
                 vwr = viewer()
