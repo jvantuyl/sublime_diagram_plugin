@@ -5,6 +5,9 @@
 	<key>fileTypes</key>
 	<array>
 		<string>wsd</string>
+		<string>pu</string>
+		<string>puml</string>
+		<string>plantuml</string>
 	</array>
 	<key>name</key>
 	<string>Diagram</string>
