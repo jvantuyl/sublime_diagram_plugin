@@ -27,11 +27,8 @@ different one.
 
 Specifying `<<subtitle>>` at the beginning of the title will provide an output
 file suffixed with that name.  This is useful in files with multiple diagrams
-so that they are generated with intelligible and predictable names.
-
-## Subtitles
-Just like the code above, with a title `<<subname>>`, you can get a fixed name
-as `sourcefilename-subname.png` instead of the random suffix.
+so that they are generated with intelligible and predictable names.  The
+subtitle will be stripped from the final diagram.
 
 ## Operating System Support
 
