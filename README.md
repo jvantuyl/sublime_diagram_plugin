@@ -9,8 +9,9 @@ command.  Multiselections are allowed.  Each diagram will be generated in a
 uniquely named file.
 
 If a diagram handler recognizes a diagram in the selection, it will render it
-and pop it up in a detected viewer.  All files are created in such a way that
-they will be cleaned up unless Sublime Text dies a particularly horrible death.
+and pop it up in a detected viewer.  Files are rendered into the same directory
+as the source file as Portable Network Graphic files.  They will be
+automatically overwritten, but not removed.
 
 If you wish to override the viewer used, disable start-time sanity checks, or
 change the default character set for diagram files, create a user version of
