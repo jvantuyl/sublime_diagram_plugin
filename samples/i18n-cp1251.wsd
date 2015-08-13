@@ -1,0 +1,56 @@
+@startuml
+title <<app1>> Service Architecture
+
+skinparam component {
+  Style uml2
+  BackgroundColor #FEFECE
+}
+node "Сервер БД" {
+  database "MSSQL / ORA \n " {
+    [DB] as DB
+  }
+}
+node "Сервер бизнес-логики" {
+  frame "Windows Service Host" {
+    package "GUIService" {
+      [GuiService] as GuiService
+    }
+    package "ExtService" {
+      [ExtService] as ExtService
+    }
+  }
+}
+node "Сервер обновления \n (может располагаться \n на сервере бизнес-логики)" {
+  folder "Удаленное хранилище" {
+    [System Storage] as UpdateStorage
+  }
+}
+node "Клиентский Компьютер" {
+  folder "Локальное хранилище" {
+    [System Client] as Client
+  }
+}
+cloud "Внешние системы" {
+  [Внешние системы] as ExtSystem
+}
+
+cloud "Service Locator" {
+  [Service Locator] as ServiceLocator
+}
+cloud "Службы OSSBSS" {
+  [Системы OSSBSS] as OSSBSS
+}
+cloud "Security \n (сервис \n авторизации)" {
+  [OSSBSS Security] as Security
+}
+[Client]          --> [GuiService]      : WCF HTTP/TCP
+[ExtSystem]       --> [ExtService]      : WCF HTTP
+[GuiService]      --> [DB]              : OSSBSS.DbAccessLayer
+[GuiService]      --> [UpdateStorage]   : SMB
+[GuiService]      --> [Security]        : WCF
+[GuiService]      --> [ServiceLocator]  : WCF
+[ServiceLocator]  --> [OSSBSS]          : WCF
+[ExtService]      --> [DB]              : OSSBSS.DbAccessLayer
+[ExtService]      ..> [GuiService]      : inproc
+@enduml
+

@@ -20,15 +20,22 @@ Diagram.sublime-settings file in the usual way.
 
 ## Internationalization (i18n)
 
-UTF-8 is the default character-set.  Use the 'charset' property to use a
-different one.
+Sublime handles all encodings internally as Unicode.  PlantUML is given UTF-8
+encoding.  This generally means that you should have solid support for
+internationalized text and filenames, within the limits of Sublime, PlantUML,
+and your Operating System.
 
-## Sub-Titles
+If, for some reason, you need PlantUML to receive an encoding other than UTF-8,
+use the 'charset' property to use a different one.
 
-Specifying `<<subtitle>>` at the beginning of the title will provide an output
-file suffixed with that name.  This is useful in files with multiple diagrams
-so that they are generated with intelligible and predictable names.  The
-subtitle will be stripped from the final diagram.
+## File Names
+
+Specifying `<<file-suffix>>` at the beginning of the title will provide an
+output file suffixed with that name.  This is useful in files with multiple
+diagrams so that they are generated with intelligible and predictable names.
+The filename annotation will be stripped from the final diagram.  There is
+currently no way to specify a filename completly different from your source
+file as a security feature to prevent easy overwriting of other files.
 
 ## Operating System Support
 
@@ -96,4 +103,4 @@ including:
 * Marcelo Da Cruz Pinto (Windows Viewer)
 * Peter Ertel (PEP8 Cleanup, Windows Improvements)
 * Juan Cabrera (Version Updates)
-* Homeway Xue (Internationalization, Subtitles)
+* Homeway Xue (Internationalization, File Naming)
