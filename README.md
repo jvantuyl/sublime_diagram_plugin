@@ -27,6 +27,33 @@ To install from scratch, it's necessary to have:
 To install, just put a checkout of this project into your Packages directory in
 Sublime Text.
 
+## support i18n
+You can edit this .wsd file for chinese, and it can render well:
+
+    @startuml
+    title <<顺序图>> 这是一个顺序图的说明
+
+
+    skinparam backgroundColor #EEEBDC 
+    actor 使用者
+    participant "頭等艙" as A 
+    participant "第二類" as B 
+    participant "最後一堂課" as 別的東西
+
+    使用者 -> A: 完成這項工作 
+    activate A
+    A -> B: 創建請求
+    activate B
+    B -> 別的東西: 創建請求 
+    activate 別的東西
+    別的東西 --> B: 這項工作完成 
+    destroy 別的東西
+    B --> A: 請求創建 
+    deactivate B
+    A --> 使用者: 做完 
+    deactivate A 
+
+    @enduml
 
 ## Support
 
