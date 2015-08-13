@@ -1,33 +1,31 @@
 ﻿from __future__ import absolute_import
 from .base import BaseDiagram
 from .base import BaseProcessor
-from subprocess import Popen as execute, PIPE, STDOUT, call
+from re import compile as re_compile
 from os.path import abspath, dirname, exists, join
-from tempfile import NamedTemporaryFile
 from platform import system
-import os
+from subprocess import Popen as execute, PIPE, STDOUT, call
+from tempfile import NamedTemporaryFile
 
 IS_MSWINDOWS = (system() == 'Windows')
 CREATE_NO_WINDOW = 0x08000000  # See MSDN, http://goo.gl/l4OKNe
 EXTRA_CALL_ARGS = {'creationflags': CREATE_NO_WINDOW} if IS_MSWINDOWS else {}
-
+TITLE = re_compile('title\s+<<(?P<filename>[^>]+)>>')
 
 class PlantUMLDiagram(BaseDiagram):
-    def __init__(self, processor, sourceFile, text):
-        super(PlantUMLDiagram, self).__init__(processor, sourceFile, text)
-        specified = '.png'
-        pos1 = text.find('title')
-        if pos1 > 0:
-            pos2 = text.find('<<', pos1 + len('title'))
-            pos3 = text.find('>>', pos2 + len('<<'))
-            if pos2 > 0 and pos3 > 0:
-                specified = text[pos2+len('<<'):pos3].strip() + ".png"
-
-        if specified != '.png':
-            filename = sourceFile + specified
-            self.file = open(filename, 'w')
+    def __init__(self, processor, sourceFile, targetFilename, text):
+        if targetFilename:
+            filename = targetFilename
         else:
-            self.file = NamedTemporaryFile(prefix=sourceFile, suffix=specified, delete=False)
+            for line in text.splitlines():
+                title_match = TITLE.match(line)
+                if title_match:
+                    filename = sourceFile + title_match.group('filename') + '.png'
+                    break
+            else:
+                # Randomly Named File
+                filename = None
+        super(PlantUMLDiagram, self).__init__(processor, sourceFile, filename, text)
 
     def generate(self):
         command = [

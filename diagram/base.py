@@ -1,8 +1,16 @@
 ﻿class BaseDiagram(object):
-    def __init__(self, processor, sourceFile, text):
+    def __init__(self, processor, sourceFile, targetFile, text):
         self.proc = processor
         self.text = text
         self.sourceFile = sourceFile
+        self.targetFile = targetFile
+        self.file = None
+
+    def open(self):
+        if self.targetFile is None:
+            self.file = NamedTemporaryFile(prefix=self.sourceFile, suffix='png', delete=False)
+        else:
+            self.file = open(self.targetFile, 'w')
 
     def generate(self):
         raise NotImplementedError('abstract base class is abstract')
@@ -24,7 +32,7 @@ class BaseProcessor(object):
         for block in text_blocks:
             try:
                 print("Rendering diagram for block: %r" % block)
-                diagram = self.DIAGRAM_CLASS(self, sourceFile, block)
+                diagram = self.DIAGRAM_CLASS(self, sourceFile, None, block)
                 rendered = diagram.generate()
                 diagrams.append(rendered)
             except Exception as e:
