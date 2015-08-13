@@ -21,6 +21,8 @@ class PlantUMLDiagram(BaseDiagram):
                 title_match = TITLE.match(line)
                 if title_match:
                     filename = sourceFile + title_match.group('filename') + '.png'
+                    # strip file title
+                    text = text.replace(title_match.group(0), 'title ')
                     break
             else:
                 # Randomly Named File
