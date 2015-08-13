@@ -16,49 +16,24 @@ If you wish to override the viewer used, disable start-time sanity checks, or
 change the default character set for diagram files, create a user version of
 Diagram.sublime-settings file in the usual way.
 
-## Install
+# Features
 
-To install from scratch, it's necessary to have:
+## Internationalization (i18n)
 
-* Java (download from java.sun.com)
-* Graphviz (I recommend "homebrew" on the Mac)
-* Sublime Text 2 or 3
+UTF-8 is the default character-set.  Use the 'charset' property to use a
+different one.
 
-To install, just put a checkout of this project into your Packages directory in
-Sublime Text.
+## Sub-Titles
 
-## support i18n
-You can edit this .wsd file for chinese, and it can render well:
+Specifying `<<subtitle>>` at the beginning of the title will provide an output
+file suffixed with that name.  This is useful in files with multiple diagrams
+so that they are generated with intelligible and predictable names.
 
-    @startuml
-    title <<顺序图>> 这是一个顺序图的说明
+## Subtitles
+Just like the code above, with a title `<<subname>>`, you can get a fixed name
+as `sourcefilename-subname.png` instead of the random suffix.
 
-
-    skinparam backgroundColor #EEEBDC 
-    actor 使用者
-    participant "頭等艙" as A 
-    participant "第二類" as B 
-    participant "最後一堂課" as 別的東西
-
-    使用者 -> A: 完成這項工作 
-    activate A
-    A -> B: 創建請求
-    activate B
-    B -> 別的東西: 創建請求 
-    activate 別的東西
-    別的東西 --> B: 這項工作完成 
-    destroy 別的東西
-    B --> A: 請求創建 
-    deactivate B
-    A --> 使用者: 做完 
-    deactivate A 
-
-    @enduml
-
-## support subtitle
-Just like the code above, with a title <<subname>>, you can get a fixed name with 'sourcefilename-subname.png' instead of the random name with template file.
-
-## Support
+## Operating System Support
 
 Operating Systems:  MacOS X, Linux, Windows (with default system viewer)
 Diagram Types: PlantUML
@@ -70,15 +45,22 @@ Viewers (in order of preference):
 
 Patches to support additional viewers or diagrams are welcome.
 
-## Install Instructions
+# Installation
 
 Check out the source directory or download and uncompress the source tarball.
-Put this directoy in the Packages directory for your platform.
+Put this directoy in the Packages directory for your platform.  Or install via
+Package Control.
 
 On Linux, it's sometimes "~/.config/sublime-text-2/Packages/".
 On MacOS X, it's "~/Library/Application Support/Sublime Text 2/Packages/".
 
 Sublime Text should detect the plugin and automatically load it.
+
+Dependencies to function correctly are:
+
+* Java (download from java.sun.com)
+* Graphviz (I recommend "homebrew" on the Mac)
+* Sublime Text 2 or 3
 
 The source is available via git at:
 
@@ -88,18 +70,22 @@ Or as a tarball at:
 
 <https://github.com/jvantuyl/sublime_diagram_plugin/tarball/master>
 
-## Example Results
+# Sample Results
 
-### Component Diagram 1
-![component1](./samples/component1.png)
+Source to these examples is available in the
+[samples folder](https://github.com/jvantuyl/sublime_diagram_plugin/tree/master/samples).
 
-### Component Diagram 2
-![component2](./samples/component2.png)
+## Basic Diagrams
+![Complex Application 1](./samples/complex-app1.png)
+![Complex Application 2](./samples/complex-app2.png)
+![Complex State Diagram 1](./samples/complex-states.png)
 
-### State Diagram
-![state1](./samples/state1.png)
+## Internationalization (i18n)
+![Cyrillic App](./samples/i18n-app1.png)
+![Cyrillic State Diagram](./samples/i18n-states.png)
+![Chinese App Diagram](./samples/i18n-顺序图.png)
 
-## Thanks
+# Thanks
 
 Special thanks to all of those who have contributed code and feedback,
 including:
@@ -113,3 +99,4 @@ including:
 * Marcelo Da Cruz Pinto (Windows Viewer)
 * Peter Ertel (PEP8 Cleanup, Windows Improvements)
 * Juan Cabrera (Version Updates)
+* Homeway Xue (Internationalization, Subtitles)

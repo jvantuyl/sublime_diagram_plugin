@@ -2,9 +2,11 @@
 
 ----------------------------------------------------------
 
-Component diagram 1
+Component Diagram 1
 
 @startuml
+
+title <<app1>> Google Docs Breakdown
 
 skinparam componentStyle uml2
 
@@ -26,9 +28,11 @@ cloud "GoogleDocs" {
 
 ----------------------------------------------------------
 
-Component diagram 2
+Component Diagram 2
 
 @startuml
+
+title <<app2>> Service-Based Application
 
 skinparam component {
   Style uml2
@@ -89,6 +93,8 @@ cloud "Security \n (Authority \n Service)" {
 State diagram
 
 @startuml
+
+title <<states>> State Diagram
 
 [*]       --> proposed  : external \n request \n registered in \n host system
 proposed  --> active    : request \n accepted
