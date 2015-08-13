@@ -36,22 +36,25 @@ class PlantUMLDiagram(BaseDiagram):
             self.proc.plantuml_jar_path,
             '-pipe',
             '-tpng',
-            '-charset',
-            'UTF-8'
         ]
 
         charset = self.proc.CHARSET
         if charset:
             print('using charset: ' + charset)
-            command.append("-charset")
-            command.append(charset)
+        else:
+            charset = 'UTF-8'
+
+        command.append("-charset")
+        command.append(charset)
+
+        self.open()
 
         puml = execute(
             command,
             stdin=PIPE, stdout=self.file,
             **EXTRA_CALL_ARGS
         )
-        puml.communicate(input=self.text.encode('UTF-8'))
+        puml.communicate(input=self.text.encode(charset))
         if puml.returncode != 0:
             print("Error Processing Diagram:")
             print(self.text)
