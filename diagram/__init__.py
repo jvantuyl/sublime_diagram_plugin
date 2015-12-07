@@ -4,6 +4,7 @@ from .quicklook import QuickLookViewer
 from .preview import PreviewViewer
 from .eog import EyeOfGnomeViewer
 from .freedesktop_default import FreedesktopDefaultViewer
+from .sublview import SublViewer
 from .windows import WindowsDefaultViewer
 from threading import Thread
 from os.path import splitext
@@ -13,6 +14,7 @@ import sys
 INITIALIZED = False
 AVAILABLE_PROCESSORS = [PlantUMLProcessor]
 AVAILABLE_VIEWERS = [
+    SublViewer,
     QuickLookViewer,
     EyeOfGnomeViewer,
     PreviewViewer,
