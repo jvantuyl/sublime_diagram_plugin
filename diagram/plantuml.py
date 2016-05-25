@@ -10,11 +10,20 @@ IS_MSWINDOWS = (system() == 'Windows')
 CREATE_NO_WINDOW = 0x08000000  # See MSDN, http://goo.gl/l4OKNe
 EXTRA_CALL_ARGS = {'creationflags': CREATE_NO_WINDOW} if IS_MSWINDOWS else {}
 
+def renderingFile(sourceFile, text):
+    suffix=".png"
+    lines=text.replace('\t',' ').splitlines()
+    for line in lines:
+        line=line.strip()
+        if line.startswith("title "):
+            title=line[6:].strip().replace(" ","-")
+            return open(sourceFile+title+suffix,'w')
+    return NamedTemporaryFile(prefix=sourceFile, suffix=suffix, delete=False)
 
 class PlantUMLDiagram(BaseDiagram):
     def __init__(self, processor, sourceFile, text):
         super(PlantUMLDiagram, self).__init__(processor, sourceFile, text)
-        self.file = NamedTemporaryFile(prefix=sourceFile, suffix='.png', delete=False)
+        self.file = renderingFile(sourceFile,text)
 
     def generate(self):
         command = [
