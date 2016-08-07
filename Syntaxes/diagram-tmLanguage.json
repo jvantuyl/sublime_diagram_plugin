@@ -1,5 +1,8 @@
 {
    "fileTypes":[
+      "pu",
+      "puml",
+      "plantuml",
       "wsd"
    ],
    "uuid":"ca03e751-04ef-4330-9a6b-2199aae1c418",
