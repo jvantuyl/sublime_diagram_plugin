@@ -16,19 +16,28 @@ If you wish to override the viewer used, disable start-time sanity checks, or
 change the default character set for diagram files, create a user version of
 Diagram.sublime-settings file in the usual way.
 
-## Install
+# Features
 
-To install from scratch, it's necessary to have:
+## Internationalization (i18n)
 
-* Java (download from java.sun.com)
-* Graphviz (I recommend "homebrew" on the Mac)
-* Sublime Text 2 or 3
+Sublime handles all encodings internally as Unicode.  PlantUML is given UTF-8
+encoding.  This generally means that you should have solid support for
+internationalized text and filenames, within the limits of Sublime, PlantUML,
+and your Operating System.
 
-To install, just put a checkout of this project into your Packages directory in
-Sublime Text.
+If, for some reason, you need PlantUML to receive an encoding other than UTF-8,
+use the 'charset' property to use a different one.
 
+## File Names
 
-## Support
+Specifying `<<file-suffix>>` at the beginning of the title will provide an
+output file suffixed with that name.  This is useful in files with multiple
+diagrams so that they are generated with intelligible and predictable names.
+The filename annotation will be stripped from the final diagram.  There is
+currently no way to specify a filename completly different from your source
+file as a security feature to prevent easy overwriting of other files.
+
+## Operating System Support
 
 Operating Systems:  MacOS X, Linux, Windows (with default system viewer)
 Diagram Types: PlantUML
@@ -40,15 +49,22 @@ Viewers (in order of preference):
 
 Patches to support additional viewers or diagrams are welcome.
 
-## Install Instructions
+# Installation
 
 Check out the source directory or download and uncompress the source tarball.
-Put this directoy in the Packages directory for your platform.
+Put this directoy in the Packages directory for your platform.  Or install via
+Package Control.
 
 On Linux, it's sometimes "~/.config/sublime-text-2/Packages/".
 On MacOS X, it's "~/Library/Application Support/Sublime Text 2/Packages/".
 
 Sublime Text should detect the plugin and automatically load it.
+
+Dependencies to function correctly are:
+
+* Java (download from java.sun.com)
+* Graphviz (I recommend "homebrew" on the Mac)
+* Sublime Text 2 or 3
 
 The source is available via git at:
 
@@ -58,18 +74,22 @@ Or as a tarball at:
 
 <https://github.com/jvantuyl/sublime_diagram_plugin/tarball/master>
 
-## Example Results
+# Sample Results
 
-### Component Diagram 1
-![component1](./samples/component1.png)
+Source to these examples is available in the
+[samples folder](https://github.com/jvantuyl/sublime_diagram_plugin/tree/master/samples).
 
-### Component Diagram 2
-![component2](./samples/component2.png)
+## Basic Diagrams
+![Complex Application 1](./samples/complex-app1.png)
+![Complex Application 2](./samples/complex-app2.png)
+![Complex State Diagram 1](./samples/complex-states.png)
 
-### State Diagram
-![state1](./samples/state1.png)
+## Internationalization (i18n)
+![Cyrillic App](./samples/i18n-app1.png)
+![Cyrillic State Diagram](./samples/i18n-states.png)
+![Chinese App Diagram](./samples/i18n-顺序图.png)
 
-## Thanks
+# Thanks
 
 Special thanks to all of those who have contributed code and feedback,
 including:
@@ -83,3 +103,4 @@ including:
 * Marcelo Da Cruz Pinto (Windows Viewer)
 * Peter Ertel (PEP8 Cleanup, Windows Improvements)
 * Juan Cabrera (Version Updates)
+* Homeway Xue (Internationalization, File Naming)
