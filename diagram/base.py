@@ -9,6 +9,7 @@
     def open(self):
         if self.targetFile is None:
             self.file = NamedTemporaryFile(prefix=self.sourceFile, suffix='png', delete=False)
+            sele.file = self.sourceFile + ".png"
         else:
             self.file = open(self.targetFile, 'w')
 
