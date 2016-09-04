@@ -1,8 +1,9 @@
-﻿class BaseDiagram(object):
-    def __init__(self, processor, sourceFile, text):
+class BaseDiagram(object):
+    def __init__(self, processor, sourceFile, targetFile, text):
         self.proc = processor
         self.text = text
         self.sourceFile = sourceFile
+        self.file = targetFile
 
     def generate(self):
         raise NotImplementedError('abstract base class is abstract')
@@ -21,10 +22,14 @@ class BaseProcessor(object):
 
     def process(self, sourceFile, text_blocks):
         diagrams = []
+        index = 0
         for block in text_blocks:
             try:
                 print("Rendering diagram for block: %r" % block)
-                diagram = self.DIAGRAM_CLASS(self, sourceFile, block)
+                index = index + 1
+                print("TargetFile name : %r" % sourceFile+str(index))                
+                diagram = self.DIAGRAM_CLASS(self, sourceFile, sourceFile+str(index), block)
+                print("Call diagram.generate()")
                 rendered = diagram.generate()
                 diagrams.append(rendered)
             except Exception as e:

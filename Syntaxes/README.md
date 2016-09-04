@@ -10,7 +10,7 @@ FileTypes: *.wsd
 
 Convert json to plist xml:
 ```
-plutil -convert xml1 diagram-tmLanguage.json -o diagram.tmLanguage
+node convert.js
 ```
 
 Get list of plantuml keywords:
