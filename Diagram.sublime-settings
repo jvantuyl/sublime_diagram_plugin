@@ -1,5 +1,5 @@
 {
 	"viewer" : "Sublime3", // Preview, QuickLook, EyeOfGnome, WindowsDefaultViewer
-	"check_on_startup": true,
+	"check_on_startup": false,
 	"charset": null // Can be "UTF-8" - to support non-latin text in diagram
 }
