@@ -44,7 +44,7 @@ node "Business Logic Server" {
     package "GUIService" {
       [GuiService] as GuiService
     }
-    package "ExtService" {
+    package "EXTService" {
       [ExtService] as ExtService
     }
   }

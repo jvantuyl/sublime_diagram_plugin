@@ -1,0 +1,93 @@
+{
+  "scopeName": "source.plantuml",
+  "name": "PlantUML",
+   "fileTypes":[
+      "pu", "puml", "plantuml"
+   ],
+   "uuid":"ca03e751-04ef-4330-9a6b-2199aae1c418",
+   "patterns":[
+      {
+         "end":"\\n",
+         "begin":"'",
+         "name":"comment.line.source.plantuml"
+      },
+      {
+            "name": "comment.block.source.plantuml",
+            "begin": "/'",
+            "end": "'/",
+            "beginCaptures": {
+                "0": {
+                    "name": "comment.line.source.plantuml"
+                }
+            }
+      },
+
+      {
+         "match":"\\b(abstract|actor|agent|artifact|boundary|card|class|cloud|component|control|database|entity|enum|folder|frame|interface|node|object|participant|rect|state|storage|usecase)\\b",
+         "name":"support.function.source.plantuml"
+      },
+
+      {
+         "name":"string.quoted.double.source.plantuml",
+         "end":"\\n",
+         "begin":"\\btitle\\b",
+         "beginCaptures": {
+            "0": { "name": "keyword.control.source.plantuml" }
+          }
+      },
+      {
+         "match":"\\b(activate|again|also|alt|as|autonumber|bottom|box|break|center|create|critical|deactivate|destroy|down|else|end|endif|endwhile|footbox|footer|fork|group|header|hide|if|is|left|link|loop|namespace|newpage|note|of|on|opt|over|package|page|par|partition|ref|repeat|return|right|rotate|show|skin|skinparam|start|stop|title|top|top to bottom direction|up|while)\\b",
+         "name":"keyword.control.source.plantuml"
+      },
+      {
+         "match":"(@enduml|@startuml)",
+         "name":"storage.modifier"
+      },
+      {
+         "match":"(!define|!endif|!ifdef|!ifndef|!include|!undef)",
+         "name":"support.type.exception"
+      },
+      {
+         "match":"((<|<\\||o|\\*)?((--)|(\\.\\.))(>|\\|>|o|\\*)?)",
+         "name":"keyword.control.source.plantuml"
+      },
+      {
+         "match":"\\b(ActivityArrowColor|ActivityArrowFontColor|ActivityArrowFontName|ActivityArrowFontSize|ActivityArrowFontStyle|ActivityBackgroundColor|ActivityBarColor|ActivityBorderColor|ActivityBorderThickness|ActivityDiamondFontColor|ActivityDiamondFontName|ActivityDiamondFontSize|ActivityDiamondFontStyle|ActivityEndColor|ActivityFontColor|ActivityFontName|ActivityFontSize|ActivityFontStyle|ActivityStartColor|ActorBackgroundColor|ActorBorderColor|ActorFontColor|ActorFontName|ActorFontSize|ActorFontStyle|ActorStereotypeFontColor|ActorStereotypeFontName|ActorStereotypeFontSize|ActorStereotypeFontStyle|AgentBackgroundColor|AgentBorderColor|AgentFontColor|AgentFontName|AgentFontSize|AgentFontStyle|AgentStereotypeFontColor|AgentStereotypeFontName|AgentStereotypeFontSize|AgentStereotypeFontStyle|ArtifactBackgroundColor|ArtifactBorderColor|ArtifactFontColor|ArtifactFontName|ArtifactFontSize|ArtifactFontStyle|ArtifactStereotypeFontColor|ArtifactStereotypeFontName|ArtifactStereotypeFontSize|ArtifactStereotypeFontStyle|BackgroundColor|BoundaryBackgroundColor|BoundaryBorderColor|BoundaryFontColor|BoundaryFontName|BoundaryFontSize|BoundaryFontStyle|BoundaryStereotypeFontColor|BoundaryStereotypeFontName|BoundaryStereotypeFontSize|BoundaryStereotypeFontStyle|CaptionFontColor|CaptionFontName|CaptionFontSize|CaptionFontStyle|CircledCharacterFontColor|CircledCharacterFontName|CircledCharacterFontSize|CircledCharacterFontStyle|CircledCharacterRadius|ClassArrowColor|ClassAttributeFontColor|ClassAttributeFontName|ClassAttributeFontSize|ClassAttributeFontStyle|ClassAttributeIconSize|ClassBackgroundColor|ClassBorderColor|ClassBorderThickness|ClassFontColor|ClassFontName|ClassFontSize|ClassFontStyle|ClassHeaderBackgroundColor|ClassStereotypeFontColor|ClassStereotypeFontName|ClassStereotypeFontSize|ClassStereotypeFontStyle|CloudBackgroundColor|CloudBorderColor|CloudFontColor|CloudFontName|CloudFontSize|CloudFontStyle|CloudStereotypeFontColor|CloudStereotypeFontName|CloudStereotypeFontSize|CloudStereotypeFontStyle|CollectionsBackgroundColor|CollectionsBorderColor|ComponentArrowColor|ComponentBackgroundColor|ComponentBorderColor|ComponentFontColor|ComponentFontName|ComponentFontSize|ComponentFontStyle|ComponentStereotypeFontColor|ComponentStereotypeFontName|ComponentStereotypeFontSize|ComponentStereotypeFontStyle|ControlBackgroundColor|ControlBorderColor|ControlFontColor|ControlFontName|ControlFontSize|ControlFontStyle|ControlStereotypeFontColor|ControlStereotypeFontName|ControlStereotypeFontSize|ControlStereotypeFontStyle|DatabaseBackgroundColor|DatabaseBorderColor|DatabaseFontColor|DatabaseFontName|DatabaseFontSize|DatabaseFontStyle|DatabaseStereotypeFontColor|DatabaseStereotypeFontName|DatabaseStereotypeFontSize|DatabaseStereotypeFontStyle|DefaultFontColor|DefaultFontName|DefaultFontSize|DefaultFontStyle|EntityBackgroundColor|EntityBorderColor|EntityFontColor|EntityFontName|EntityFontSize|EntityFontStyle|EntityStereotypeFontColor|EntityStereotypeFontName|EntityStereotypeFontSize|EntityStereotypeFontStyle|FolderBackgroundColor|FolderBorderColor|FolderFontColor|FolderFontName|FolderFontSize|FolderFontStyle|FolderStereotypeFontColor|FolderStereotypeFontName|FolderStereotypeFontSize|FolderStereotypeFontStyle|FooterFontColor|FooterFontName|FooterFontSize|FooterFontStyle|FrameBackgroundColor|FrameBorderColor|FrameFontColor|FrameFontName|FrameFontSize|FrameFontStyle|FrameStereotypeFontColor|FrameStereotypeFontName|FrameStereotypeFontSize|FrameStereotypeFontStyle|GenericArrowFontColor|GenericArrowFontName|GenericArrowFontSize|GenericArrowFontStyle|HeaderFontColor|HeaderFontName|HeaderFontSize|HeaderFontStyle|HyperlinkColor|IconPackageBackgroundColor|IconPackageColor|IconPrivateBackgroundColor|IconPrivateColor|IconProtectedBackgroundColor|IconProtectedColor|IconPublicBackgroundColor|IconPublicColor|InterfaceBackgroundColor|InterfaceBorderColor|InterfaceFontColor|InterfaceFontName|InterfaceFontSize|InterfaceFontStyle|InterfaceStereotypeFontColor|InterfaceStereotypeFontName|InterfaceStereotypeFontSize|InterfaceStereotypeFontStyle|LegendBackgroundColor|LegendBorderColor|LegendFontColor|LegendFontName|LegendFontSize|LegendFontStyle|Monochrome|NodeBackgroundColor|NodeBorderColor|NodeFontColor|NodeFontName|NodeFontSize|NodeFontStyle|NodeStereotypeFontColor|NodeStereotypeFontName|NodeStereotypeFontSize|NodeStereotypeFontStyle|NoteBackgroundColor|NoteBorderColor|NoteBorderThickness|NoteFontColor|NoteFontName|NoteFontSize|NoteFontStyle|ObjectArrowColor|ObjectAttributeFontColor|ObjectAttributeFontName|ObjectAttributeFontSize|ObjectAttributeFontStyle|ObjectBackgroundColor|ObjectBorderColor|ObjectBorderThickness|ObjectFontColor|ObjectFontName|ObjectFontSize|ObjectFontStyle|ObjectStereotypeFontColor|ObjectStereotypeFontName|ObjectStereotypeFontSize|ObjectStereotypeFontStyle|PackageBackgroundColor|PackageBorderColor|PackageBorderThickness|PackageFontColor|PackageFontName|PackageFontSize|PackageFontStyle|PackageStereotypeFontColor|PackageStereotypeFontName|PackageStereotypeFontSize|PackageStereotypeFontStyle|ParticipantBackgroundColor|ParticipantBorderColor|ParticipantFontColor|ParticipantFontName|ParticipantFontSize|ParticipantFontStyle|PartitionBackgroundColor|PartitionBorderColor|PartitionBorderThickness|PartitionFontColor|PartitionFontName|PartitionFontSize|PartitionFontStyle|QueueBackgroundColor|QueueBorderColor|QueueFontColor|QueueFontName|QueueFontSize|QueueFontStyle|QueueStereotypeFontColor|QueueStereotypeFontName|QueueStereotypeFontSize|QueueStereotypeFontStyle|RectangleBackgroundColor|RectangleBorderColor|RectangleFontColor|RectangleFontName|RectangleFontSize|RectangleFontStyle|RectangleStereotypeFontColor|RectangleStereotypeFontName|RectangleStereotypeFontSize|RectangleStereotypeFontStyle|SequenceActorBorderThickness|SequenceArrowColor|SequenceArrowFontColor|SequenceArrowFontName|SequenceArrowFontSize|SequenceArrowFontStyle|SequenceArrowThickness|SequenceBoxBackgroundColor|SequenceBoxBorderColor|SequenceBoxFontColor|SequenceBoxFontName|SequenceBoxFontSize|SequenceBoxFontStyle|SequenceDelayFontColor|SequenceDelayFontName|SequenceDelayFontSize|SequenceDelayFontStyle|SequenceDividerBackgroundColor|SequenceDividerBorderColor|SequenceDividerBorderThickness|SequenceDividerFontColor|SequenceDividerFontName|SequenceDividerFontSize|SequenceDividerFontStyle|SequenceGroupBackgroundColor|SequenceGroupBodyBackgroundColor|SequenceGroupBorderColor|SequenceGroupBorderThickness|SequenceGroupFontColor|SequenceGroupFontName|SequenceGroupFontSize|SequenceGroupFontStyle|SequenceGroupHeaderFontColor|SequenceGroupHeaderFontName|SequenceGroupHeaderFontSize|SequenceGroupHeaderFontStyle|SequenceLifeLineBackgroundColor|SequenceLifeLineBorderColor|SequenceLifeLineBorderThickness|SequenceNewpageSeparatorColor|SequenceParticipantBorderThickness|SequenceReferenceBackgroundColor|SequenceReferenceBorderColor|SequenceReferenceBorderThickness|SequenceReferenceFontColor|SequenceReferenceFontName|SequenceReferenceFontSize|SequenceReferenceFontStyle|SequenceReferenceHeaderBackgroundColor|SequenceStereotypeFontColor|SequenceStereotypeFontName|SequenceStereotypeFontSize|SequenceStereotypeFontStyle|SequenceTitleFontColor|SequenceTitleFontName|SequenceTitleFontSize|SequenceTitleFontStyle|StateArrowColor|StateAttributeFontColor|StateAttributeFontName|StateAttributeFontSize|StateAttributeFontStyle|StateBackgroundColor|StateBorderColor|StateEndColor|StateFontColor|StateFontName|StateFontSize|StateFontStyle|StateStartColor|StereotypeABackgroundColor|StereotypeCBackgroundColor|StereotypeEBackgroundColor|StereotypeIBackgroundColor|StorageBackgroundColor|StorageBorderColor|StorageFontColor|StorageFontName|StorageFontSize|StorageFontStyle|StorageStereotypeFontColor|StorageStereotypeFontName|StorageStereotypeFontSize|StorageStereotypeFontStyle|SwimlaneBorderColor|SwimlaneBorderThickness|SwimlaneTitleFontColor|SwimlaneTitleFontName|SwimlaneTitleFontSize|SwimlaneTitleFontStyle|TitleFontColor|TitleFontName|TitleFontSize|TitleFontStyle|UsecaseArrowColor|UsecaseBackgroundColor|UsecaseBorderColor|UsecaseFontColor|UsecaseFontName|UsecaseFontSize|UsecaseFontStyle|UsecaseStereotypeFontColor|UsecaseStereotypeFontName|UsecaseStereotypeFontSize|UsecaseStereotypeFontStyle)\\b",
+         "name":"variable.source.plantuml"
+      },
+
+
+      {
+         "name":"string.quoted.double.plantuml",
+         "begin":"([A-Za-z_0-9]+) +((-?->)|(<-?-)) +([A-Za-z_0-9]+)\\s*(:)",
+         "end":"\\n",
+         "beginCaptures": {
+            "1": { "name": "constant.string.source.plantuml" },
+            "2": { "name": "keyword.control.source.plantuml" },
+            "5": { "name": "constant.string.source.plantuml" }
+          }
+      },
+
+
+      {
+         "end":"\"",
+         "begin":"\"",
+         "name":"string.quoted.double.source.plantuml"
+      },
+      {
+         "end":"'",
+         "begin":"'",
+         "name":"string.quoted.single.source.plantuml"
+      },
+
+
+      {
+         "match":"\\b[A-Z]+[A-Za-z_0-9]*\\b",
+         "name":"constant.string.source.plantuml"
+      },
+      {
+         "match":"\\b[a-z_]+[A-Za-z_0-9]*\\b",
+         "name":"variable.parameter.source.plantuml"
+      }
+   ]
+}

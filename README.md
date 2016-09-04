@@ -61,13 +61,13 @@ Or as a tarball at:
 ## Example Results
 
 ### Component Diagram 1
-![component1](./samples/component1.png)
+![component1](./samples/component-1.png)
 
 ### Component Diagram 2
-![component2](./samples/component2.png)
+![component2](./samples/component-2.png)
 
 ### State Diagram
-![state1](./samples/state1.png)
+![state1](./samples/component-3.png)
 
 ## Thanks
 
