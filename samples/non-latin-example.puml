@@ -14,7 +14,7 @@ node "Сервер бизнес-логики" {
     package "GUIService" {
       [GuiService] as GuiService
     }
-    package "ExtService" {
+    package "EXTService" {
       [ExtService] as ExtService
     }
   }
