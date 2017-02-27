@@ -7,7 +7,6 @@ from .eog import EyeOfGnomeViewer
 from .freedesktop_default import FreedesktopDefaultViewer
 from .windows import WindowsDefaultViewer
 from threading import Thread
-# from os.path import splitext
 from sublime import error_message, load_settings
 import sys
 
@@ -108,9 +107,6 @@ def process(view):
 
     if diagrams:
         sourceFile = view.file_name()
-        # if sourceFile is None:
-        #     sourceFile = 'untitled.txt'
-        # sourceFile = splitext(sourceFile)[0] + '-'
         t = Thread(target=render_and_view, args=(sourceFile, diagrams,))
         t.daemon = True
         t.start()
