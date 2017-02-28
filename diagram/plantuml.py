@@ -62,7 +62,6 @@ class PlantUMLDiagram(BaseDiagram):
             command.append("-charset")
             command.append(charset)
 
-        print("EEEE:", self.file)
         puml = execute(
             command,
             stdin=PIPE, stdout=self.file,
