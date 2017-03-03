@@ -2,6 +2,7 @@
 from .base import BaseDiagram
 from .base import BaseProcessor
 from subprocess import Popen as execute, PIPE, STDOUT, call
+from os import getcwd, chdir
 from os.path import abspath, dirname, exists, join
 from tempfile import NamedTemporaryFile
 from platform import system
@@ -15,8 +16,28 @@ class PlantUMLDiagram(BaseDiagram):
     def __init__(self, processor, sourceFile, text):
         super(PlantUMLDiagram, self).__init__(processor, sourceFile, text)
         self.file = NamedTemporaryFile(prefix=sourceFile, suffix='.png', delete=False)
+        self.workDir = None
+        if sourceFile:
+            sourceDir = dirname(sourceFile)
+            if exists(sourceDir):
+                self.workDir = sourceDir
 
     def generate(self):
+        """
+        Set the dir of sourceFile as working dir, otherwise plantuml could not include files correctly.
+        """
+        cwd = getcwd()
+        if self.workDir:
+            print ('chdir to:', self.workDir)
+            chdir(self.workDir)
+
+        try:
+            return self._generate()
+        finally:
+            if self.workDir:
+                chdir(cwd)
+
+    def _generate(self):
         command = [
             'java',
             '-jar',
