@@ -12,6 +12,7 @@ class BaseProcessor(object):
     DIAGRAM_CLASS = None
     CHARSET = None
     CHECK_ON_STARTUP = True
+    NEW_FILE = False
 
     def load(self):
         raise NotImplementedError('abstract base class is abstract')

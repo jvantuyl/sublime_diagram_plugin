@@ -7,7 +7,6 @@ from .eog import EyeOfGnomeViewer
 from .freedesktop_default import FreedesktopDefaultViewer
 from .windows import WindowsDefaultViewer
 from threading import Thread
-from os.path import splitext
 from sublime import error_message, load_settings
 import sys
 
@@ -41,6 +40,7 @@ def setup():
             proc = processor()
             proc.CHARSET = sublime_settings.get('charset')
             proc.CHECK_ON_STARTUP = sublime_settings.get('check_on_startup')
+            proc.NEW_FILE = sublime_settings.get('new_file')
             proc.load()
             ACTIVE_PROCESSORS.append(proc)
             print("Loaded processor: %r" % proc)
@@ -107,9 +107,6 @@ def process(view):
 
     if diagrams:
         sourceFile = view.file_name()
-        if sourceFile is None:
-            sourceFile = 'untitled.txt'
-        sourceFile = splitext(sourceFile)[0] + '-'
         t = Thread(target=render_and_view, args=(sourceFile, diagrams,))
         t.daemon = True
         t.start()

@@ -3,7 +3,7 @@ from .base import BaseDiagram
 from .base import BaseProcessor
 from subprocess import Popen as execute, PIPE, STDOUT, call
 from os import getcwd, chdir
-from os.path import abspath, dirname, exists, join
+from os.path import abspath, dirname, exists, join, splitext
 from tempfile import NamedTemporaryFile
 from platform import system
 
@@ -15,12 +15,20 @@ EXTRA_CALL_ARGS = {'creationflags': CREATE_NO_WINDOW} if IS_MSWINDOWS else {}
 class PlantUMLDiagram(BaseDiagram):
     def __init__(self, processor, sourceFile, text):
         super(PlantUMLDiagram, self).__init__(processor, sourceFile, text)
-        self.file = NamedTemporaryFile(prefix=sourceFile, suffix='.png', delete=False)
+
         self.workDir = None
-        if sourceFile:
+        if sourceFile is None:
+            self.file = NamedTemporaryFile(prefix='untitled', suffix='.png', delete=False)
+
+        else:
             sourceDir = dirname(sourceFile)
             if exists(sourceDir):
                 self.workDir = sourceDir
+            if self.proc.NEW_FILE:
+                self.file = NamedTemporaryFile(prefix=sourceFile, suffix='.png', delete=False)
+            else:
+                sourceFile = splitext(sourceFile)[0] + '.png'
+                self.file = open(mode='w', file=sourceFile)
 
     def generate(self):
         """
