@@ -28,7 +28,7 @@ class PlantUMLDiagram(BaseDiagram):
                 self.file = NamedTemporaryFile(prefix=sourceFile, suffix='.png', delete=False)
             else:
                 sourceFile = splitext(sourceFile)[0] + '.png'
-                self.file = open(mode='w', file=sourceFile)
+                self.file = open(sourceFile, 'w')
 
     def generate(self):
         """
