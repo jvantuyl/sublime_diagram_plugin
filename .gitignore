@@ -1,4 +1,4 @@
 *.pyc
 *.swp
 .DS_*
-/Syntaxes/*.cache
+*.cache
