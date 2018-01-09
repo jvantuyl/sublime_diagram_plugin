@@ -1,0 +1,113 @@
+%YAML 1.2
+---
+# See http://www.sublimetext.com/docs/3/syntax.html
+name: DiagramEx
+file_extensions: [wsd, uml, puml]
+scope: source.wsd
+
+variables:
+  obj_name: '(?xi) [a-z]  [a-z_0-9]*'
+  var_name: '(?xi) [a-z_] [a-z_0-9]*'
+  known_color: |-
+    (?xi) (?:
+      AliceBlue | AntiqueWhite | Aqua | Aquamarine | Azure | Beige | Bisque | Black | BlanchedAlmond | Blue | BlueViolet |
+      Brown | BurlyWood | CadetBlue | Chartreuse | Chocolate | Coral | CornflowerBlue | Cornsilk | Crimson | Cyan | DarkBlue |
+      DarkCyan | DarkGoldenRod | DarkGray | DarkGreen | DarkGrey | DarkKhaki | DarkMagenta | DarkOliveGreen | DarkOrchid | DarkRed |
+      DarkSalmon | DarkSeaGreen | DarkSlateBlue | DarkSlateGray | DarkSlateGrey | DarkTurquoise | DarkViolet | Darkorange | DeepPink |
+      DeepSkyBlue | DimGray | DimGrey | DodgerBlue | FireBrick | FloralWhite | ForestGreen | Fuchsia | Gainsboro | GhostWhite | Gold |
+      GoldenRod | Gray | Green | GreenYellow | Grey | HoneyDew | HotPink | IndianRed | Indigo | Ivory | Khaki | Lavender | LavenderBlush |
+      LawnGreen | LemonChiffon | LightBlue | LightCoral | LightCyan | LightGoldenRodYellow | LightGray | LightGreen | LightGrey |
+      LightPink | LightSalmon | LightSeaGreen | LightSkyBlue | LightSlateGray | LightSlateGrey | LightSteelBlue | LightYellow | Lime |
+      LimeGreen | Linen | Magenta | Maroon | MediumAquaMarine | MediumBlue | MediumOrchid | MediumPurple | MediumSeaGreen |
+      MediumSlateBlue | MediumSpringGreen | MediumTurquoise | MediumVioletRed | MidnightBlue | MintCream | MistyRose | Moccasin |
+      NavajoWhite | Navy | OldLace | Olive | OliveDrab | Orange | OrangeRed | Orchid | PaleGoldenRod | PaleGreen | PaleTurquoise |
+      PaleVioletRed | PapayaWhip | PeachPuff | Peru | Pink | Plum | PowderBlue | Purple | Red | RosyBrown | RoyalBlue | SaddleBrown |
+      Salmon | SandyBrown | SeaGreen | SeaShell | Sienna | Silver | SkyBlue | SlateBlue | SlateGray | SlateGrey | Snow | SpringGreen |
+      SteelBlue | Tan | Teal | Thistle | Tomato | Turquoise | Violet | Wheat | White | WhiteSmoke | Yellow | YellowGreen
+    )
+  color: '(?xi) \# (?: \d+ | {{obj_name}} )'
+  arrow: |-
+    (?xi) (?:
+      --> | -> | -\[ {{color}} \]> |
+      <-- | <- | <\[ {{color}} \]-
+    )
+
+contexts:
+  main:
+    - match: (?xi) ^ ( \# | ' )
+      scope: comment.line.source.wsd
+      push:
+        - meta_scope: comment.line.source.wsd
+        - match: \n
+          pop: true
+
+    - match: |-
+        (?xi) \b
+        (
+          abstract | actor | artifact | class | component | database |
+          enum | interface | object | package | participant | state |
+          usecase
+        ) \b
+      scope: support.function.source.wsd
+
+    - match: (?xi) ^ \b title \b
+      scope: string.quoted.double.source.wsd
+      push:
+        - match: '\n'
+          scope: keyword.control.source.wsd
+          pop: true
+
+    # control keywords
+    - match: |-
+        (?xi) \b (
+          @enduml | @startuml | activate | again | also | alt | as | autonumber | bottom | box | break |
+          center | create | critical | deactivate | destroy | down | else | end | endif | endwhile | footbox |
+          footer | fork | group | header | hide | if | is | left | link | loop | namespace |
+          newpage | note | of | on | opt | over | page | par | partition | ref | repeat |
+          return | right | rotate | show | skin | skinparam | start | stop | title | top to bottom direction | top |
+          up | while
+        )\b
+      scope: keyword.control.source.wsd
+
+    # known colors
+    - match: '{{known_color}}'
+      scope: variable.source.wsd
+
+    - match: (?xi) ( {{obj_name}} ) \s ( {{arrow}} ) \s ( {{obj_name}} ) [ \t]* (:)?
+      captures:
+        1: constant.string.source.wsd
+        2: keyword.control.source.wsd
+        3: constant.string.source.wsd
+        4: keyword.control.source.wsd
+      push:
+        - meta_scope: string.quoted.double.source.wsd
+        - match: \n
+          pop: true
+
+    - match: (?xi) ^ ( {{obj_name}} ) [ \t]* (:)
+      captures:
+        1: constant.string.source.wsd
+        2: keyword.control.source.wsd
+      push:
+        - meta_scope: string.quoted.double.source.wsd
+        - match: \n
+          pop: true
+
+    - match: \"
+      scope: string.quoted.double.source.wsd
+      push:
+        - meta_scope: string.quoted.double.source.wsd
+        - match: \"
+          pop: true
+
+    - match: \'
+      scope: string.quoted.single.source.wsd
+      push:
+        - meta_scope: string.quoted.single.source.wsd
+        - match: \'
+          pop: true
+
+    - match: (?xi) \b {{obj_name}} \b
+      scope: constant.string.source.wsd
+    - match: (?xi) \b {{var_name}} \b
+      scope: variable.parameter.source.wsd

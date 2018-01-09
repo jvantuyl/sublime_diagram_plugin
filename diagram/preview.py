@@ -1,11 +1,10 @@
 ﻿from .base import BaseViewer
-import sys
 from subprocess import check_call, Popen as run_command
-
+from sublime import platform
 
 class PreviewViewer(BaseViewer):
     def load(self):
-        if sys.platform not in ('darwin',):
+        if platform() not in ("osx",):
             raise Exception("Currently only supported on MacOS")
         if not check_call("which open > /dev/null", shell=True) == 0:
             raise Exception("Can't find open")

@@ -5,12 +5,11 @@ from subprocess import Popen as execute, PIPE, STDOUT, call
 from os import getcwd, chdir
 from os.path import abspath, dirname, exists, join, splitext
 from tempfile import NamedTemporaryFile
-from platform import system
+from sublime import platform
 
-IS_MSWINDOWS = (system() == 'Windows')
+IS_MSWINDOWS = (platform() == 'windows')
 CREATE_NO_WINDOW = 0x08000000  # See MSDN, http://goo.gl/l4OKNe
 EXTRA_CALL_ARGS = {'creationflags': CREATE_NO_WINDOW} if IS_MSWINDOWS else {}
-
 
 class PlantUMLDiagram(BaseDiagram):
     def __init__(self, processor, sourceFile, text):
@@ -48,6 +47,7 @@ class PlantUMLDiagram(BaseDiagram):
     def _generate(self):
         command = [
             'java',
+            '-DPLANTUML_LIMIT_SIZE=50000',
             '-jar',
             self.proc.plantuml_jar_path,
             '-pipe',
@@ -78,7 +78,7 @@ class PlantUMLDiagram(BaseDiagram):
 
 class PlantUMLProcessor(BaseProcessor):
     DIAGRAM_CLASS = PlantUMLDiagram
-    PLANTUML_VERSION = 8024
+    PLANTUML_VERSION = 8050
     PLANTUML_VERSION_STRING = 'PlantUML version %s' % PLANTUML_VERSION
 
     def load(self):
