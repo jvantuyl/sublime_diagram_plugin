@@ -7,9 +7,16 @@ from os.path import abspath, dirname, exists, join, splitext
 from tempfile import NamedTemporaryFile
 from sublime import platform
 
+import sys
+if sys.version_info < (3,0):
+    import os
+    DEVNULL = open(os.devnull, 'wb')
+else:
+    from subprocess import DEVNULL
+
 IS_MSWINDOWS = (platform() == 'windows')
 CREATE_NO_WINDOW = 0x08000000  # See MSDN, http://goo.gl/l4OKNe
-EXTRA_CALL_ARGS = {'creationflags': CREATE_NO_WINDOW} if IS_MSWINDOWS else {}
+EXTRA_CALL_ARGS = {'creationflags': CREATE_NO_WINDOW, 'shell': True} if IS_MSWINDOWS else {}
 
 class PlantUMLDiagram(BaseDiagram):
     def __init__(self, processor, sourceFile, text):
@@ -64,7 +71,7 @@ class PlantUMLDiagram(BaseDiagram):
 
         puml = execute(
             command,
-            stdin=PIPE, stdout=self.file,
+            stdin=PIPE, stdout=self.file, stderr=DEVNULL,
             **EXTRA_CALL_ARGS
         )
         puml.communicate(input=self.text.encode('UTF-8'))
@@ -108,6 +115,7 @@ class PlantUMLProcessor(BaseProcessor):
             ],
             stdout=PIPE,
             stderr=STDOUT,
+            stdin=DEVNULL,
             **EXTRA_CALL_ARGS
         )
 
@@ -144,6 +152,7 @@ class PlantUMLProcessor(BaseProcessor):
             ],
             stdout=PIPE,
             stderr=STDOUT,
+            stdin=DEVNULL,
             **EXTRA_CALL_ARGS
         )
 
