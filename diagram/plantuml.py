@@ -78,8 +78,8 @@ class PlantUMLDiagram(BaseDiagram):
 
 class PlantUMLProcessor(BaseProcessor):
     DIAGRAM_CLASS = PlantUMLDiagram
-    PLANTUML_VERSION = 8050
-    PLANTUML_VERSION_STRING = 'PlantUML version %s' % PLANTUML_VERSION
+    PLANTUML_VERSION = 8054
+    PLANTUML_VERSION_STRING = 'PlantUML version 1.2017.19'
 
     def load(self):
         self.check_dependencies()
