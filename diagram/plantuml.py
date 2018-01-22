@@ -17,23 +17,40 @@ else:
 IS_MSWINDOWS = (platform() == 'windows')
 CREATE_NO_WINDOW = 0x08000000  # See MSDN, http://goo.gl/l4OKNe
 EXTRA_CALL_ARGS = {'creationflags': CREATE_NO_WINDOW, 'shell': True} if IS_MSWINDOWS else {}
+OUTPUT_FORMAT_DICT = {
+    'png':   ('-tpng',   '.png'),   # generate images using PNG format
+    'svg':   ('-tsvg',   '.svg'),   # generate images using SVG format
+    'txt':   ('-ttxt',   '.txt'),   # generate images with ASCII art
+    'utxt':  ('-tutxt',  '.utxt'),  # generate images with ASCII art using Unicode characters
+    'latex': ('-tlatex', '.tex')   # generate images using LaTeX/Tikz format
+    # ------------------------------
+    # These formats are also supported by plantUml, but they need some prerequisite to be installed...
+    # PlantUml return_code = 1 on invocation.
+    # 'pdf':   ('-tpdf',   '.pdf'),   # generate images using PDF format
+    # 'vdx':   ('-tvdx',   '.vdx'),   # generate images using VDX format
+    # 'eps':   ('-teps',   '.eps'),   # generate images using EPS format
+}
 
 class PlantUMLDiagram(BaseDiagram):
     def __init__(self, processor, sourceFile, text):
         super(PlantUMLDiagram, self).__init__(processor, sourceFile, text)
 
+        output_format = self.proc.OUTPUT_FORMAT
+        self.output_format_arg, self.output_file_extension = OUTPUT_FORMAT_DICT.get(output_format, (None, None))
+        if not self.output_format_arg:
+            raise Exception("Unsupported value '%s' for setting 'output_format'" % (output_format))
+
         self.workDir = None
         if sourceFile is None:
-            self.file = NamedTemporaryFile(prefix='untitled', suffix='.png', delete=False)
-
+            self.file = NamedTemporaryFile(prefix='untitled', suffix=self.output_file_extension, delete=False)
         else:
             sourceDir = dirname(sourceFile)
             if exists(sourceDir):
                 self.workDir = sourceDir
             if self.proc.NEW_FILE:
-                self.file = NamedTemporaryFile(prefix=sourceFile, suffix='.png', delete=False)
+                self.file = NamedTemporaryFile(prefix=sourceFile, suffix=self.output_file_extension, delete=False)
             else:
-                sourceFile = splitext(sourceFile)[0] + '.png'
+                sourceFile = splitext(sourceFile)[0] + self.output_file_extension
                 self.file = open(sourceFile, 'w')
 
     def generate(self):
@@ -52,15 +69,16 @@ class PlantUMLDiagram(BaseDiagram):
                 chdir(cwd)
 
     def _generate(self):
+
+        # http://en.plantuml.com/command-line
         command = [
             'java',
-            '-DPLANTUML_LIMIT_SIZE=50000',
+            '-v', # verbose
+            '-DPLANTUML_LIMIT_SIZE=50000', # max output image height
             '-jar',
             self.proc.plantuml_jar_path,
             '-pipe',
-            '-tpng',
-            '-charset',
-            'UTF-8'
+            self.output_format_arg
         ]
 
         charset = self.proc.CHARSET
@@ -68,20 +86,25 @@ class PlantUMLDiagram(BaseDiagram):
             print('using charset: ' + charset)
             command.append("-charset")
             command.append(charset)
+        else:
+            print('using default charset: UTF-8')
+            command.append("-charset")
+            command.append('UTF-8')
 
         puml = execute(
             command,
-            stdin=PIPE, stdout=self.file, stderr=DEVNULL,
+            stdin=PIPE,
+            stdout=self.file,
+            stderr=DEVNULL,
             **EXTRA_CALL_ARGS
         )
         puml.communicate(input=self.text.encode('UTF-8'))
         if puml.returncode != 0:
-            print("Error Processing Diagram:")
+            print("Error Processing Diagram, returncode=%s:" % (puml.returncode))
             print(self.text)
             return
         else:
             return self.file
-
 
 class PlantUMLProcessor(BaseProcessor):
     DIAGRAM_CLASS = PlantUMLDiagram
@@ -103,7 +126,7 @@ class PlantUMLProcessor(BaseProcessor):
         )
 
         if has_java is not 0:
-            raise Exception("can't find Java")
+            raise Exception("Can't find Java")
 
     def check_plantuml_functionality(self):
         puml = execute(
@@ -113,9 +136,9 @@ class PlantUMLProcessor(BaseProcessor):
                 self.plantuml_jar_path,
                 '-testdot'
             ],
+            stdin=DEVNULL,
             stdout=PIPE,
             stderr=STDOUT,
-            stdin=DEVNULL,
             **EXTRA_CALL_ARGS
         )
 
@@ -139,7 +162,7 @@ class PlantUMLProcessor(BaseProcessor):
             )
         )
         if not exists(self.plantuml_jar_path):
-            raise Exception("can't find " + self.plantuml_jar_file)
+            raise Exception("Can't find " + self.plantuml_jar_file)
         print("Detected %r" % (self.plantuml_jar_path,))
 
     def check_plantuml_version(self):
@@ -150,9 +173,9 @@ class PlantUMLProcessor(BaseProcessor):
                 self.plantuml_jar_path,
                 '-version'
             ],
+            stdin=DEVNULL,
             stdout=PIPE,
             stderr=STDOUT,
-            stdin=DEVNULL,
             **EXTRA_CALL_ARGS
         )
 
@@ -165,7 +188,7 @@ class PlantUMLProcessor(BaseProcessor):
         if not puml.returncode == 0:
             raise Exception("PlantUML returned an error code")
         if self.PLANTUML_VERSION_STRING not in str(version_output):
-            raise Exception("error verifying PlantUML version")
+            raise Exception("Error verifying PlantUML version")
 
     def extract_blocks(self, view):
 		# If any Region is selected - trying to convert it, otherwise converting all @start-@end blocks in view
