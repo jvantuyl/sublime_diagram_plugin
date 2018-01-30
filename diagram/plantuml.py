@@ -73,7 +73,6 @@ class PlantUMLDiagram(BaseDiagram):
         # http://en.plantuml.com/command-line
         command = [
             'java',
-            '-v', # verbose
             '-DPLANTUML_LIMIT_SIZE=50000', # max output image height
             '-jar',
             self.proc.plantuml_jar_path,
@@ -90,6 +89,8 @@ class PlantUMLDiagram(BaseDiagram):
             print('using default charset: UTF-8')
             command.append("-charset")
             command.append('UTF-8')
+
+        print("Command: %s" % (command))
 
         puml = execute(
             command,
