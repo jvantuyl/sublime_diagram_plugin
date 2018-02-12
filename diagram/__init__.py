@@ -124,7 +124,7 @@ def render_and_view(sourceFile, diagrams):
         diagram_files.extend(processor.process(sourceFile, blocks))
 
     if diagram_files:
-        print("%r viewing %r" % (ACTIVE_VIEWER, [d.name for d in diagram_files]))
+        print("%r viewing %r" % (ACTIVE_VIEWER, [d.name for d in diagram_files if d]))
         ACTIVE_VIEWER.view(diagram_files)
     else:
         error_message("No diagrams generated...")
