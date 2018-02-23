@@ -109,8 +109,8 @@ class PlantUMLDiagram(BaseDiagram):
 
 class PlantUMLProcessor(BaseProcessor):
     DIAGRAM_CLASS = PlantUMLDiagram
-    PLANTUML_VERSION = 8054
-    PLANTUML_VERSION_STRING = 'PlantUML version 1.2017.19'
+    PLANTUML_VERSION = '1.2018.1'
+    PLANTUML_VERSION_STRING = 'PlantUML version 1.2018.01'
 
     def load(self):
         self.check_dependencies()
@@ -153,7 +153,7 @@ class PlantUMLProcessor(BaseProcessor):
             raise Exception('PlantUML does not appear functional')
 
     def find_plantuml_jar(self):
-        self.plantuml_jar_file = 'plantuml-%s.jar' % (self.PLANTUML_VERSION,)
+        self.plantuml_jar_file = 'plantuml.%s.jar' % (self.PLANTUML_VERSION,)
         self.plantuml_jar_path = None
 
         self.plantuml_jar_path = abspath(
