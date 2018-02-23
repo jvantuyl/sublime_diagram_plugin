@@ -1,7 +1,8 @@
 {
-  // restart sublime to apply the changes
-	"viewer" : "Preview", // Preview, QuickLook, EyeOfGnome, WindowsDefaultViewer
+	// restart sublime to apply the changes
+	"viewer": "Preview", // Preview, QuickLook, EyeOfGnome, WindowsDefaultViewer
 	"check_on_startup": true,
-  "new_file":false, // generate new file each time
+	"new_file": false, // generate new file each time
+	"output_format": "png", // valid values: png, svg, txt, utxt, latex
 	"charset": null // Can be "UTF-8" - to support non-latin text in diagram
 }

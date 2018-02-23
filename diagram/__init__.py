@@ -38,9 +38,10 @@ def setup():
         try:
             print("Loading processor class: %r" % processor)
             proc = processor()
-            proc.CHARSET = sublime_settings.get('charset')
-            proc.CHECK_ON_STARTUP = sublime_settings.get('check_on_startup')
-            proc.NEW_FILE = sublime_settings.get('new_file')
+            proc.CHARSET = sublime_settings.get('charset', None)
+            proc.CHECK_ON_STARTUP = sublime_settings.get('check_on_startup', True)
+            proc.NEW_FILE = sublime_settings.get('new_file', True)
+            proc.OUTPUT_FORMAT = sublime_settings.get('output_format', 'png')
             proc.load()
             ACTIVE_PROCESSORS.append(proc)
             print("Loaded processor: %r" % proc)
