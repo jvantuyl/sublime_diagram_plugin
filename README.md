@@ -80,7 +80,7 @@ including:
 * Seán Labastille (Preview Support, Multi-Diagram Support)
 * Kirk Strauser (Python 3 / SublimeText 3 Support)
 * Stanislav Vitko (PlantUML Updates)
-* Constantine ? (Windows Viewer, Charset Support, Image Size Tweaks, Various Other Fixes)
+* Constantine ? (Windows Viewer, Charset Support, Image Size Tweaks, Output Selection Support, Various Other Fixes)
 * Marcelo Da Cruz Pinto (Windows Viewer)
 * Peter Ertel (PEP8 Cleanup, Windows Improvements)
 * Juan Cabrera (Version Updates)
