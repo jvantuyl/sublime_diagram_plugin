@@ -6,6 +6,7 @@ from .preview import PreviewViewer
 from .eog import EyeOfGnomeViewer
 from .freedesktop_default import FreedesktopDefaultViewer
 from .windows import WindowsDefaultViewer
+from itertools import count
 from threading import Thread
 from sublime import error_message, load_settings
 import sys
@@ -118,10 +119,11 @@ def process(view):
 
 def render_and_view(sourceFile, diagrams):
     print("Rendering %r" % diagrams)
+    sequence_counter = count()
     diagram_files = []
 
     for processor, blocks in diagrams:
-        diagram_files.extend(processor.process(sourceFile, blocks))
+        diagram_files.extend(processor.process(sourceFile, blocks, sequence_counter))
 
     if diagram_files:
         print("%r viewing %r" % (ACTIVE_VIEWER, [d.name for d in diagram_files if d]))

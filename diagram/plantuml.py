@@ -32,7 +32,7 @@ OUTPUT_FORMAT_DICT = {
 }
 
 class PlantUMLDiagram(BaseDiagram):
-    def __init__(self, processor, sourceFile, text):
+    def __init__(self, processor, sourceFile, text, sequence=0):
         super(PlantUMLDiagram, self).__init__(processor, sourceFile, text)
 
         output_format = self.proc.OUTPUT_FORMAT
@@ -50,7 +50,7 @@ class PlantUMLDiagram(BaseDiagram):
             if self.proc.NEW_FILE:
                 self.file = NamedTemporaryFile(prefix=sourceFile, suffix=self.output_file_extension, delete=False)
             else:
-                sourceFile = splitext(sourceFile)[0] + self.output_file_extension
+                sourceFile = splitext(sourceFile)[0] + '_' + str(sequence) + self.output_file_extension
                 self.file = open(sourceFile, 'w')
 
     def generate(self):
