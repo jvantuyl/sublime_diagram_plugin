@@ -28,8 +28,8 @@ variables:
   color: '(?xi) \# (?: \d+ | {{obj_name}} )'
   arrow: |-
     (?xi) (?:
-      --> | -> | -\[ {{color}} \]> |
-      <-- | <- | <\[ {{color}} \]-
+      --> | -> | \.\.> | -\[ {{color}} \]> |
+      <-- | <- | <\.\. | <\[ {{color}} \]-
     )
 
 contexts:

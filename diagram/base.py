@@ -4,6 +4,7 @@
         self.text = text
         self.sourceFile = sourceFile
 
+    # returns tuple: (is_success, status_message, file)
     def generate(self):
         raise NotImplementedError('abstract base class is abstract')
 

@@ -59,7 +59,7 @@ class PlantUMLDiagram(BaseDiagram):
         """
         cwd = getcwd()
         if self.workDir:
-            print ('chdir to:', self.workDir)
+            print ('[DIAGRAM] chdir to:', self.workDir)
             chdir(self.workDir)
 
         try:
@@ -82,30 +82,31 @@ class PlantUMLDiagram(BaseDiagram):
 
         charset = self.proc.CHARSET
         if charset:
-            print('using charset: ' + charset)
+            print('[DIAGRAM] Using charset: %s' % charset)
             command.append("-charset")
             command.append(charset)
         else:
-            print('using default charset: UTF-8')
+            print('[DIAGRAM] Using default charset: UTF-8')
             command.append("-charset")
             command.append('UTF-8')
 
-        print("Command: %s" % (command))
+        print("[DIAGRAM] Command: %s" % (command))
 
         puml = execute(
             command,
             stdin=PIPE,
             stdout=self.file,
-            stderr=DEVNULL,
+            stderr=PIPE,
             **EXTRA_CALL_ARGS
         )
-        puml.communicate(input=self.text.encode('UTF-8'))
+        (puml_output, puml_error) = puml.communicate(input=self.text.encode('UTF-8'))
         if puml.returncode != 0:
-            print("Error Processing Diagram, returncode=%s:" % (puml.returncode))
-            print(self.text)
-            return
+            status_message = "Error Processing Diagram (returncode=%s): %s" % (puml.returncode, puml_error.decode('UTF-8'))
+            print("[DIAGRAM] %s:" % status_message)
+            print("[DIAGRAM] %s" % self.text)
+            return (False, status_message, None)
         else:
-            return self.file
+            return (True, "OK", self.file)
 
 class PlantUMLProcessor(BaseProcessor):
     DIAGRAM_CLASS = PlantUMLDiagram
@@ -113,7 +114,9 @@ class PlantUMLProcessor(BaseProcessor):
     PLANTUML_VERSION_STRING = 'PlantUML version 1.2018.01'
 
     def load(self):
-        self.check_dependencies()
+        if self.CHECK_ON_STARTUP:
+            self.check_dependencies()
+
         self.find_plantuml_jar()
 
         if self.CHECK_ON_STARTUP:
@@ -146,7 +149,7 @@ class PlantUMLProcessor(BaseProcessor):
         (stdout, stderr) = puml.communicate()
         dot_output = str(stdout)
 
-        print("PlantUML Smoke Check:")
+        print("[DIAGRAM] PlantUML Smoke Check:")
         print(dot_output)
 
         if ('OK' not in dot_output) or ('Error' in dot_output):
@@ -164,7 +167,7 @@ class PlantUMLProcessor(BaseProcessor):
         )
         if not exists(self.plantuml_jar_path):
             raise Exception("Can't find " + self.plantuml_jar_file)
-        print("Detected %r" % (self.plantuml_jar_path,))
+        print("[DIAGRAM] Detected %r" % (self.plantuml_jar_path,))
 
     def check_plantuml_version(self):
         puml = execute(
@@ -183,7 +186,7 @@ class PlantUMLProcessor(BaseProcessor):
         (stdout, stderr) = puml.communicate()
         version_output = stdout
 
-        print("Version Detection:")
+        print("[DIAGRAM] Version Detection:")
         print(version_output)
 
         if not puml.returncode == 0:

@@ -118,7 +118,7 @@ def process(view):
 
 
 def render_and_view(sourceFile, diagrams):
-    print("Rendering %r" % diagrams)
+    print("[DIAGRAM] Rendering: %r" % diagrams)
     sequence_counter = count()
     diagram_files = []
 
@@ -126,7 +126,11 @@ def render_and_view(sourceFile, diagrams):
         diagram_files.extend(processor.process(sourceFile, blocks, sequence_counter))
 
     if diagram_files:
-        print("%r viewing %r" % (ACTIVE_VIEWER, [d.name for d in diagram_files if d]))
-        ACTIVE_VIEWER.view(diagram_files)
+        for (is_success, status_message, file) in diagram_files:
+            if is_success:
+                print("[DIAGRAM] %r viewing %r" % (ACTIVE_VIEWER, file))
+                ACTIVE_VIEWER.view([file])
+            else:
+                error_message(status_message)
     else:
         error_message("No diagrams generated...")
