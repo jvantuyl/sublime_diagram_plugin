@@ -21,7 +21,7 @@ Diagram.sublime-settings file in the usual way.
 
 To install from scratch, it's necessary to have:
 
-* Java (download from java.sun.com)
+* Java (download from java.sun.com) (brew cask install java)
 * Graphviz (I recommend "homebrew" on the Mac)
 * Sublime Text 2 or 3
 
